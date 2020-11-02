@@ -13,7 +13,7 @@ import javax.persistence.Version;
  */
 @Data
 @NoArgsConstructor
-@Entity
+@Entity(name = "Country")
 public class Country {
 
     @Id
