@@ -17,7 +17,7 @@ import javax.persistence.Version;
 public class Doc {
 
     @Id
-    @Column(name = "code")
+    @Column(name = "code", nullable = false)
     private int code;
 
     /**
@@ -29,6 +29,6 @@ public class Doc {
     /**
      * Название документа
      */
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 }

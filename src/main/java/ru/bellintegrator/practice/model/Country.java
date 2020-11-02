@@ -3,10 +3,8 @@ package ru.bellintegrator.practice.model;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Version;
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * Страна
@@ -17,18 +15,21 @@ import javax.persistence.Version;
 public class Country {
 
     @Id
-    @Column(name = "code")
+    @Column(name = "code", nullable = false)
     private int code;
 
     /**
      * Служебное поле hibernate
      */
     @Version
-    private Integer version;
+    private Long version;
 
     /**
      * Название страны
      */
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
+
+    @OneToMany(targetEntity = User.class)
+    private List<User> users;
 }

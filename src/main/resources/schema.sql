@@ -48,9 +48,13 @@ CREATE TABLE IF NOT EXISTS User (
     middle_name         VARCHAR(30)                           COMMENT 'Отчество пользователя',
     position            VARCHAR(30)   NOT NULL                COMMENT 'Должность пользователя',
     phone               VARCHAR(11)                           COMMENT 'Телефон пользователя',
+    citizenship_code    INTEGER                               COMMENT 'Код гражданства',
     is_active           BIT                    DEFAULT TRUE   COMMENT 'Статус идентификации',
 
-    FOREIGN KEY (office_id) REFERENCES Office (id)
+    FOREIGN KEY (office_id)        REFERENCES Office (id),
+    FOREIGN KEY (citizenship_code) REFERENCES Country (code)
 );
 COMMENT ON TABLE User IS 'Пользователь';
-CREATE INDEX IX_User_Office_Id ON User (office_id);
+CREATE INDEX IX_User_Office_Id        ON User (office_id);
+CREATE INDEX IX_User_Citizenship_Code ON User (citizenship_code);
+

@@ -60,6 +60,9 @@ public class User {
     @Column(name = "phone")
     private String phone;
 
+    @Column(name = "citizenship_code", nullable = false)
+    private int citizenshipCode;
+
     /**
      * Статус идентификации
      */
@@ -69,5 +72,9 @@ public class User {
     @ManyToOne(targetEntity = Office.class)
     @JoinColumn(name = "office_id")
     private Office office;
+
+    @ManyToOne(targetEntity = Country.class)
+    @JoinColumn(name = "citizenship_code")
+    private Country citizenship;
 
 }
