@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Организация
@@ -63,6 +64,9 @@ public class Organization {
     /**
      * Статус организации
      */
-    @Column(name = "is_active")
+    @Column(name = "is_active", nullable = false)
     private boolean isActive;
+
+    @OneToMany(targetEntity = Office.class)
+    private List<Office> offices;
 }
