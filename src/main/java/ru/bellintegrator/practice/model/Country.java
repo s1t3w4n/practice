@@ -20,16 +20,16 @@ public class Country {
     private Long id;
 
     /**
-     * Код страны
-     */
-    @Column(name = "code", nullable = false)
-    private int code;
-
-    /**
      * Служебное поле hibernate
      */
     @Version
     private Long version;
+
+    /**
+     * Код страны
+     */
+    @Column(name = "code", nullable = false)
+    private int code;
 
     /**
      * Название страны

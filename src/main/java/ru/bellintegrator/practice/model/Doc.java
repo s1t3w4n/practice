@@ -20,16 +20,16 @@ public class Doc {
     private Long id;
 
     /**
-     * Код документа
-     */
-    @Column(name = "code", nullable = false)
-    private int code;
-
-    /**
      * Служебное поле hibernate
      */
     @Version
     private Integer version;
+
+    /**
+     * Код документа
+     */
+    @Column(name = "code", nullable = false)
+    private int code;
 
     /**
      * Название документа
