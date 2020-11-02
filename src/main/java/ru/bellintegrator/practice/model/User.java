@@ -75,9 +75,9 @@ public class User {
     private Long identityId;
 
     /**
-     * Код гражданства
+     * Уникальный идентификатор персонального документа
      */
-    @Column(name = "citizenship_code", nullable = false)
+    @Column(name = "citizenship_id", nullable = false)
     private int citizenshipCode;
 
     /**
@@ -91,7 +91,7 @@ public class User {
     private Office office;
 
     @ManyToOne(targetEntity = Country.class)
-    @JoinColumn(name = "citizenship_code")
+    @JoinColumn(name = "citizenship_id")
     private Country citizenship;
 
     @OneToOne(targetEntity = Identity.class)

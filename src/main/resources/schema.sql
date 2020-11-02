@@ -72,6 +72,6 @@ CREATE TABLE IF NOT EXISTS User (
 );
 COMMENT ON TABLE User IS 'Пользователь';
 CREATE INDEX IX_User_Office_Id        ON User (office_id);
-CREATE INDEX IX_User_Citizenship_Id ON User (citizenship_id);
+CREATE INDEX IX_User_Citizenship_Id   ON User (citizenship_id);
 CREATE INDEX IX_User_Identity_Id      ON User (identity_id);
 

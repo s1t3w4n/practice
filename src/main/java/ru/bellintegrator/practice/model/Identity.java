@@ -36,9 +36,9 @@ public class Identity {
     private Integer version;
 
     /**
-     * Код документа
+     * Уникальный идентификатор документа
      */
-    @Column(name = "doc_code")
+    @Column(name = "doc_id")
     private int docCode;
 
     /**
@@ -55,7 +55,7 @@ public class Identity {
     private Date docDate;
 
     @ManyToOne(targetEntity = Doc.class)
-    @JoinColumn(name = "doc_code")
+    @JoinColumn(name = "doc_id")
     private Doc doc;
 
     @OneToOne(targetEntity = User.class)
