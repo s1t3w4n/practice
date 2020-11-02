@@ -3,11 +3,7 @@ package ru.bellintegrator.practice.model;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Version;
+import javax.persistence.*;
 import java.util.List;
 
 /**
@@ -19,6 +15,13 @@ import java.util.List;
 public class Country {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Id", nullable = false)
+    private Long id;
+
+    /**
+     * Код страны
+     */
     @Column(name = "code", nullable = false)
     private int code;
 
