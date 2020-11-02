@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * Персональный документ
@@ -46,5 +47,8 @@ public class Identity {
     @ManyToOne(targetEntity = Country.class)
     @JoinColumn(name = "doc_code")
     private Doc doc;
+
+    @ManyToMany(mappedBy = "identities")
+    private Set<User> users;
 
 }

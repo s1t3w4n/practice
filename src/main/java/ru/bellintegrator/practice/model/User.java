@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Пользователь
@@ -79,5 +80,18 @@ public class User {
     @ManyToOne(targetEntity = Country.class)
     @JoinColumn(name = "citizenship_code")
     private Country citizenship;
+
+    @ManyToMany(
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            }
+    )
+    @JoinTable(
+            name = "User_Identity",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "identity_id")
+    )
+    private Set<Identity> identities;
 
 }

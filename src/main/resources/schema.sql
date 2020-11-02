@@ -70,3 +70,17 @@ CREATE TABLE IF NOT EXISTS Identity (
 COMMENT ON TABLE Identity IS 'Персональный документ';
 CREATE INDEX IX_Identity_Doc_Code      ON Identity (doc_code);
 
+CREATE TABLE IF NOT EXISTS User_Identity (
+    user_id        INTEGER  NOT NULL COMMENT 'Уникальный идентификатор пользователя',
+    identity_id    INTEGER  NOT NULL COMMENT 'Уникальный идентификатор персонального документа',
+
+    PRIMARY KEY (user_id, identity_id)
+);
+COMMENT ON TABLE User_Identity IS 'join-таблица для связи пользователя и персонального документа';
+
+CREATE INDEX IX_User_Identity_Id ON User_Identity (identity_id);
+ALTER TABLE User_Identity ADD FOREIGN KEY (identity_id) REFERENCES Identity(id);
+
+CREATE INDEX IX_Identity_User_Id ON User_Identity (user_id);
+ALTER TABLE User_Identity ADD FOREIGN KEY (user_id) REFERENCES USER (id);
+
