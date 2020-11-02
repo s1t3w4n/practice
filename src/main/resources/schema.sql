@@ -1,15 +1,15 @@
 CREATE TABLE IF NOT EXISTS Doc (
     id          INTEGER                               COMMENT 'Уникальный идентификатор' PRIMARY KEY AUTO_INCREMENT,
-    code        INTEGER      NOT NULL UNIQUE          COMMENT 'Код документа',
     version     INTEGER      NOT NULL                 COMMENT 'Служебное поле hibernate',
+    code        INTEGER      NOT NULL UNIQUE          COMMENT 'Код документа',
     name        VARCHAR(113) NOT NULL UNIQUE          COMMENT 'Название документа'
 );
 COMMENT ON TABLE Doc IS 'Документ';
 
 CREATE TABLE IF NOT EXISTS Country (
     id          INTEGER                               COMMENT 'Уникальный идентификатор' PRIMARY KEY AUTO_INCREMENT,
-    code        INTEGER      NOT NULL UNIQUE          COMMENT 'Код страны',
     version     INTEGER      NOT NULL                 COMMENT 'Служебное поле hibernate',
+    code        INTEGER      NOT NULL UNIQUE          COMMENT 'Код страны',
     name        VARCHAR(60)  NOT NULL UNIQUE          COMMENT 'Название страны'
 );
 COMMENT ON TABLE Country IS 'Страна';
