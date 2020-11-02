@@ -15,7 +15,7 @@ public class Organization {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Id")
+    @Column(name = "Id", nullable = false)
     private Long id;
 
     /**
@@ -27,31 +27,31 @@ public class Organization {
     /**
      * Название организации
      */
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
     /**
      * Полное название организации
      */
-    @Column(name = "full_name")
+    @Column(name = "full_name", nullable = false)
     private String fullName;
 
     /**
      * ИНН организации
      */
-    @Column(name = "inn")
+    @Column(name = "inn", nullable = false)
     private String inn;
 
     /**
      * КПП организации
      */
-    @Column(name = "kpp")
+    @Column(name = "kpp", nullable = false)
     private String kpp;
 
     /**
      * Адрес организации
      */
-    @Column(name = "address")
+    @Column(name = "address", nullable = false)
     private String address;
 
     /**
