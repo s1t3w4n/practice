@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Version;
 import java.util.Date;
 
@@ -36,7 +38,7 @@ public class Identity {
     /**
      * Код документа
      */
-    @Column(name = "doc_code", nullable = false)
+    @Column(name = "doc_code")
     private int docCode;
 
     /**
@@ -48,10 +50,11 @@ public class Identity {
     /**
      * Дата регистрации документа пользователя
      */
-    @Column(name = "citizenship_code")
+    @Column(name = "doc_date")
+    @Temporal(TemporalType.DATE)
     private Date docDate;
 
-    @ManyToOne(targetEntity = Country.class)
+    @ManyToOne(targetEntity = Doc.class)
     @JoinColumn(name = "doc_code")
     private Doc doc;
 
