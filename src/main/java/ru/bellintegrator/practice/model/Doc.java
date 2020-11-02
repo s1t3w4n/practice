@@ -3,10 +3,8 @@ package ru.bellintegrator.practice.model;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Version;
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * Документ
@@ -31,4 +29,7 @@ public class Doc {
      */
     @Column(name = "name", nullable = false)
     private String name;
+
+    @OneToMany(targetEntity = Identity.class)
+    private List<Identity> offices;
 }

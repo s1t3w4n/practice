@@ -60,6 +60,9 @@ public class User {
     @Column(name = "phone")
     private String phone;
 
+    /**
+     * Код гражданства
+     */
     @Column(name = "citizenship_code", nullable = false)
     private int citizenshipCode;
 

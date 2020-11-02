@@ -36,7 +36,13 @@ VALUES (0, 1, 'Северный', 'Северный адрес', '74951111111'),
        (0, 3, 'Северо-Западный', 'Северо-Западный адрес', '74955555555'),
        (0, 3, 'Юго-Восточный', 'Юго-Восточный адрес', '74956666666');
 
-INSERT INTO USER (version, office_id, first_name, second_name, middle_name, position, phone, citizenship_code)
+INSERT INTO User (version, office_id, first_name, second_name, middle_name, position, phone, citizenship_code)
 VALUES (0, 1, 'Иванов', 'Иван', 'Иванович', 'Директор', '777', 643),
        (0, 3, 'Петров', 'Петр', 'Петрович', 'Программист', '256', 840),
        (0, 5, 'Мартынов', 'Мартын', 'Мартынович', 'Менеджер', '111', 276);
+
+INSERT INTO Identity (version, doc_code, doc_number, doc_date)
+VALUES (0, 03, '123456789', '2010-10-10'),
+       (0, 07, '234567891', '2011-11-11'),
+       (0, 08, '345678912', '2012-12-12'),
+       (0, 10, '456789123', '2013-01-13');

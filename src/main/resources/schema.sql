@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS User (
     position            VARCHAR(30)   NOT NULL                COMMENT 'Должность пользователя',
     phone               VARCHAR(11)                           COMMENT 'Телефон пользователя',
     citizenship_code    INTEGER                               COMMENT 'Код гражданства',
-    is_active           BIT                    DEFAULT TRUE   COMMENT 'Статус идентификации',
+    is_identified       BIT                    DEFAULT FALSE  COMMENT 'Статус идентификации',
 
     FOREIGN KEY (office_id)        REFERENCES Office (id),
     FOREIGN KEY (citizenship_code) REFERENCES Country (code)
@@ -57,4 +57,16 @@ CREATE TABLE IF NOT EXISTS User (
 COMMENT ON TABLE User IS 'Пользователь';
 CREATE INDEX IX_User_Office_Id        ON User (office_id);
 CREATE INDEX IX_User_Citizenship_Code ON User (citizenship_code);
+
+CREATE TABLE IF NOT EXISTS Identity (
+    id                  INTEGER                               COMMENT 'Уникальный идентификатор' PRIMARY KEY AUTO_INCREMENT,
+    version             INTEGER       NOT NULL                COMMENT 'Служебное поле hibernate',
+    doc_code            INTEGER                               COMMENT 'Код документа',
+    doc_number          VARCHAR(20)                           COMMENT 'Номер документа пользователя',
+    doc_date            DATE                                  COMMENT 'Дата регистрации документа пользователя',
+
+    FOREIGN KEY (doc_code) REFERENCES Doc (code)
+);
+COMMENT ON TABLE Identity IS 'Персональный документ';
+CREATE INDEX IX_Identity_Doc_Code      ON Identity (doc_code);
 
