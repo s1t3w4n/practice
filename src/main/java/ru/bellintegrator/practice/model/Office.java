@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Офис
@@ -57,4 +58,7 @@ public class Office {
     @ManyToOne(targetEntity = Organization.class)
     @JoinColumn(name = "org_id")
     private Organization organization;
+
+    @OneToMany(targetEntity = User.class)
+    private List<User> users;
 }
