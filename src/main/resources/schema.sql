@@ -39,25 +39,6 @@ CREATE TABLE IF NOT EXISTS Office (
 COMMENT ON TABLE Office IS 'Офис';
 CREATE INDEX IX_Office_Org_Id ON Office (org_id);
 
-CREATE TABLE IF NOT EXISTS User (
-    id                  INTEGER                               COMMENT 'Уникальный идентификатор' PRIMARY KEY AUTO_INCREMENT,
-    version             INTEGER       NOT NULL                COMMENT 'Служебное поле hibernate',
-    office_id           INTEGER       NOT NULL                COMMENT 'Уникальный идентификатор офиса',
-    first_name          VARCHAR(30)   NOT NULL                COMMENT 'Имя пользователя',
-    second_name         VARCHAR(30)                           COMMENT 'Фамилия пользователя',
-    middle_name         VARCHAR(30)                           COMMENT 'Отчество пользователя',
-    position            VARCHAR(30)   NOT NULL                COMMENT 'Должность пользователя',
-    phone               VARCHAR(11)                           COMMENT 'Телефон пользователя',
-    citizenship_code    INTEGER                               COMMENT 'Код гражданства',
-    is_identified       BIT                    DEFAULT FALSE  COMMENT 'Статус идентификации',
-
-    FOREIGN KEY (office_id)        REFERENCES Office (id),
-    FOREIGN KEY (citizenship_code) REFERENCES Country (code)
-);
-COMMENT ON TABLE User IS 'Пользователь';
-CREATE INDEX IX_User_Office_Id        ON User (office_id);
-CREATE INDEX IX_User_Citizenship_Code ON User (citizenship_code);
-
 CREATE TABLE IF NOT EXISTS Identity (
     id                  INTEGER                               COMMENT 'Уникальный идентификатор' PRIMARY KEY AUTO_INCREMENT,
     version             INTEGER       NOT NULL                COMMENT 'Служебное поле hibernate',
@@ -70,17 +51,25 @@ CREATE TABLE IF NOT EXISTS Identity (
 COMMENT ON TABLE Identity IS 'Персональный документ';
 CREATE INDEX IX_Identity_Doc_Code      ON Identity (doc_code);
 
-CREATE TABLE IF NOT EXISTS User_Identity (
-    user_id        INTEGER  NOT NULL COMMENT 'Уникальный идентификатор пользователя',
-    identity_id    INTEGER  NOT NULL COMMENT 'Уникальный идентификатор персонального документа',
+CREATE TABLE IF NOT EXISTS User (
+    id                  INTEGER                               COMMENT 'Уникальный идентификатор' PRIMARY KEY AUTO_INCREMENT,
+    version             INTEGER       NOT NULL                COMMENT 'Служебное поле hibernate',
+    office_id           INTEGER       NOT NULL                COMMENT 'Уникальный идентификатор офиса',
+    first_name          VARCHAR(30)   NOT NULL                COMMENT 'Имя пользователя',
+    second_name         VARCHAR(30)                           COMMENT 'Фамилия пользователя',
+    middle_name         VARCHAR(30)                           COMMENT 'Отчество пользователя',
+    position            VARCHAR(30)   NOT NULL                COMMENT 'Должность пользователя',
+    phone               VARCHAR(11)                           COMMENT 'Телефон пользователя',
+    identity_id         INTEGER                               COMMENT 'Уникальный идентификатор персонального документа',
+    citizenship_code    INTEGER                               COMMENT 'Код гражданства',
+    is_identified       BIT                    DEFAULT FALSE  COMMENT 'Статус идентификации',
 
-    PRIMARY KEY (user_id, identity_id)
+    FOREIGN KEY (office_id)        REFERENCES Office (id),
+    FOREIGN KEY (identity_id) REFERENCES Identity (id),
+    FOREIGN KEY (citizenship_code) REFERENCES Country (code)
 );
-COMMENT ON TABLE User_Identity IS 'join-таблица для связи пользователя и персонального документа';
-
-CREATE INDEX IX_User_Identity_Id ON User_Identity (identity_id);
-ALTER TABLE User_Identity ADD FOREIGN KEY (identity_id) REFERENCES Identity(id);
-
-CREATE INDEX IX_Identity_User_Id ON User_Identity (user_id);
-ALTER TABLE User_Identity ADD FOREIGN KEY (user_id) REFERENCES USER (id);
+COMMENT ON TABLE User IS 'Пользователь';
+CREATE INDEX IX_User_Office_Id        ON User (office_id);
+CREATE INDEX IX_User_Citizenship_Code ON User (citizenship_code);
+CREATE INDEX IX_User_Identity_Id      ON User (identity_id);
 

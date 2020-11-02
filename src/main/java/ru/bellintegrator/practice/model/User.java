@@ -4,7 +4,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Set;
 
 /**
  * Пользователь
@@ -62,6 +61,12 @@ public class User {
     private String phone;
 
     /**
+     * Уникальный идентификатор персонального документа
+     */
+    @Column(name = "identity_id")
+    private Long identityId;
+
+    /**
      * Код гражданства
      */
     @Column(name = "citizenship_code", nullable = false)
@@ -81,17 +86,7 @@ public class User {
     @JoinColumn(name = "citizenship_code")
     private Country citizenship;
 
-    @ManyToMany(
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            }
-    )
-    @JoinTable(
-            name = "User_Identity",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "identity_id")
-    )
-    private Set<Identity> identities;
-
+    @OneToOne(targetEntity = Identity.class)
+    @JoinColumn(name = "identity_id")
+    private Identity identity;
 }
