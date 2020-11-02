@@ -44,7 +44,7 @@ CREATE INDEX IX_Office_Org_Id ON Office (org_id);
 CREATE TABLE IF NOT EXISTS Identity (
     id                  INTEGER                               COMMENT 'Уникальный идентификатор' PRIMARY KEY AUTO_INCREMENT,
     version             INTEGER       NOT NULL                COMMENT 'Служебное поле hibernate',
-    doc_id              INTEGER                               COMMENT 'Код документа',
+    doc_id              INTEGER                               COMMENT 'Уникальный идентификатор документа',
     doc_number          VARCHAR(20)                           COMMENT 'Номер документа пользователя',
     doc_date            DATE                                  COMMENT 'Дата регистрации документа пользователя',
 
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS User (
     position            VARCHAR(30)   NOT NULL                COMMENT 'Должность пользователя',
     phone               VARCHAR(11)                           COMMENT 'Телефон пользователя',
     identity_id         INTEGER                               COMMENT 'Уникальный идентификатор персонального документа',
-    citizenship_id      INTEGER                               COMMENT 'Код гражданства',
+    citizenship_id      INTEGER                               COMMENT 'Уникальный идентификатор страны',
     is_identified       BIT                    DEFAULT FALSE  COMMENT 'Статус идентификации',
 
     FOREIGN KEY (office_id)         REFERENCES Office (id),
