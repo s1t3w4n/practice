@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS User (
     middle_name         VARCHAR(30)                           COMMENT 'Отчество пользователя',
     position            VARCHAR(30)   NOT NULL                COMMENT 'Должность пользователя',
     phone               VARCHAR(11)                           COMMENT 'Телефон пользователя',
-    identity_id         INTEGER                               COMMENT 'Уникальный идентификатор персонального документа',
+    identity_id         INTEGER                UNIQUE         COMMENT 'Уникальный идентификатор персонального документа',
     citizenship_id      INTEGER                               COMMENT 'Уникальный идентификатор страны',
     is_identified       BIT                    DEFAULT FALSE  COMMENT 'Статус идентификации',
 
