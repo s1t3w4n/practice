@@ -95,6 +95,5 @@ public class User {
     private Country citizenship;
 
     @OneToOne(targetEntity = Identity.class)
-    @JoinColumn(name = "identity_id")
     private Identity identity;
 }

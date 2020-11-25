@@ -41,18 +41,6 @@ CREATE TABLE IF NOT EXISTS Office (
 COMMENT ON TABLE Office IS 'Офис';
 CREATE INDEX IX_Office_Org_Id ON Office (org_id);
 
-CREATE TABLE IF NOT EXISTS Identity (
-    id                  INTEGER                               COMMENT 'Уникальный идентификатор' PRIMARY KEY AUTO_INCREMENT,
-    version             INTEGER       NOT NULL                COMMENT 'Служебное поле hibernate',
-    doc_id              INTEGER                               COMMENT 'Уникальный идентификатор документа',
-    doc_number          VARCHAR(20)                           COMMENT 'Номер документа пользователя',
-    doc_date            DATE                                  COMMENT 'Дата регистрации документа пользователя',
-
-    FOREIGN KEY (doc_id) REFERENCES Doc (id)
-);
-COMMENT ON TABLE Identity IS 'Персональный документ';
-CREATE INDEX IX_Identity_Doc_Id      ON Identity (doc_id);
-
 CREATE TABLE IF NOT EXISTS User (
     id                  INTEGER                               COMMENT 'Уникальный идентификатор' PRIMARY KEY AUTO_INCREMENT,
     version             INTEGER       NOT NULL                COMMENT 'Служебное поле hibernate',
@@ -62,16 +50,27 @@ CREATE TABLE IF NOT EXISTS User (
     middle_name         VARCHAR(30)                           COMMENT 'Отчество пользователя',
     position            VARCHAR(30)   NOT NULL                COMMENT 'Должность пользователя',
     phone               VARCHAR(11)                           COMMENT 'Телефон пользователя',
-    identity_id         INTEGER                UNIQUE         COMMENT 'Уникальный идентификатор персонального документа',
     citizenship_id      INTEGER                               COMMENT 'Уникальный идентификатор страны',
     is_identified       BIT                    DEFAULT FALSE  COMMENT 'Статус идентификации',
 
     FOREIGN KEY (office_id)         REFERENCES Office (id),
-    FOREIGN KEY (identity_id)       REFERENCES Identity (id),
     FOREIGN KEY (citizenship_id)    REFERENCES Country (id)
 );
 COMMENT ON TABLE User IS 'Пользователь';
 CREATE INDEX IX_User_Office_Id        ON User (office_id);
 CREATE INDEX IX_User_Citizenship_Id   ON User (citizenship_id);
-CREATE INDEX IX_User_Identity_Id      ON User (identity_id);
 
+CREATE TABLE IF NOT EXISTS Identity (
+    id                  INTEGER                               COMMENT 'Уникальный идентификатор' PRIMARY KEY AUTO_INCREMENT,
+    version             INTEGER       NOT NULL                COMMENT 'Служебное поле hibernate',
+    doc_id              INTEGER                               COMMENT 'Уникальный идентификатор документа',
+    doc_number          VARCHAR(20)                           COMMENT 'Номер документа пользователя',
+    doc_date            DATE                                  COMMENT 'Дата регистрации документа пользователя',
+    user_id             INTEGER                               COMMENT 'Уникальный идентификатор пользователя',
+
+    FOREIGN KEY (doc_id) REFERENCES Doc (id),
+    FOREIGN KEY (user_id)         REFERENCES User (id)
+);
+COMMENT ON TABLE Identity IS 'Персональный документ';
+CREATE INDEX IX_Identity_Doc_Id      ON Identity (doc_id);
+CREATE INDEX IX_Identity_User_Id     ON Identity (user_id);

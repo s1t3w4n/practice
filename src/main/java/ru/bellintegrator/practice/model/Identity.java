@@ -59,5 +59,6 @@ public class Identity {
     private Doc doc;
 
     @OneToOne(targetEntity = User.class)
+    @JoinColumn(name = "user_id")
     private User user;
 }
