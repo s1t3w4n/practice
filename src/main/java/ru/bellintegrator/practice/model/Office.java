@@ -34,12 +34,6 @@ public class Office {
     private Integer version;
 
     /**
-     * Уникальный идентификатор организации
-     */
-    @Column(name = "org_id", nullable = false)
-    private Long orgId;
-
-    /**
      * Название офиса
      */
     @Column(name = "name", nullable = false)

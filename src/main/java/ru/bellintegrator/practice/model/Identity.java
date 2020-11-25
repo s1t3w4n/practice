@@ -36,12 +36,6 @@ public class Identity {
     private Integer version;
 
     /**
-     * Уникальный идентификатор документа
-     */
-    @Column(name = "doc_id")
-    private int docCode;
-
-    /**
      * Номер документа пользователя
      */
     @Column(name = "doc_number")

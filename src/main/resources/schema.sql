@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS Identity (
     doc_date            DATE                                  COMMENT 'Дата регистрации документа пользователя',
     user_id             INTEGER                               COMMENT 'Уникальный идентификатор пользователя',
 
-    FOREIGN KEY (doc_id) REFERENCES Doc (id),
+    FOREIGN KEY (doc_id)          REFERENCES Doc (id),
     FOREIGN KEY (user_id)         REFERENCES User (id)
 );
 COMMENT ON TABLE Identity IS 'Персональный документ';

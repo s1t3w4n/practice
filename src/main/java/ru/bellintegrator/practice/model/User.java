@@ -33,12 +33,6 @@ public class User {
     private Integer version;
 
     /**
-     * Уникальный идентификатор офиса
-     */
-    @Column(name = "office_id", nullable = false)
-    private Long officeId;
-
-    /**
      * Имя пользователя
      */
     @Column(name = "first_name", nullable = false)
@@ -67,18 +61,6 @@ public class User {
      */
     @Column(name = "phone")
     private String phone;
-
-    /**
-     * Уникальный идентификатор персонального документа
-     */
-    @Column(name = "identity_id")
-    private Long identityId;
-
-    /**
-     * Уникальный идентификатор персонального документа
-     */
-    @Column(name = "citizenship_id", nullable = false)
-    private int citizenshipCode;
 
     /**
      * Статус идентификации

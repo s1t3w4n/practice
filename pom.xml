@@ -13,6 +13,8 @@
         <java.version>1.8</java.version>
         <encoding>UTF-8</encoding>
         <swagger.version>3.0.0</swagger.version>
+        <javax.validation.version>2.0.1.Final</javax.validation.version>
+        <orika.version>1.26.0</orika.version>
     </properties>
 
     <parent>
@@ -34,7 +36,18 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
+        <!-- https://mvnrepository.com/artifact/javax.validation/validation-api -->
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>${javax.validation.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.gitlab.haynes/orika-spring-boot-starter -->
+        <dependency>
+            <groupId>com.gitlab.haynes</groupId>
+            <artifactId>orika-spring-boot-starter</artifactId>
+            <version>${orika.version}</version>
+        </dependency>
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
