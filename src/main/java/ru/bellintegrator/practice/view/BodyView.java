@@ -5,7 +5,7 @@ import lombok.Data;
  * View ответа в который оборачиваются все возвращаемые типы при отправке по api
  */
 @Data
-public class MainView {
+public class BodyView {
     /**
      * Поле data
      */
