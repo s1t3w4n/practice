@@ -61,12 +61,12 @@ CREATE INDEX IX_User_Office_Id        ON User (office_id);
 CREATE INDEX IX_User_Citizenship_Id   ON User (citizenship_id);
 
 CREATE TABLE IF NOT EXISTS Identity (
-    id                  INTEGER                               COMMENT 'Уникальный идентификатор' PRIMARY KEY AUTO_INCREMENT,
+    user_id             INTEGER       NOT NULL                COMMENT 'Уникальный идентификатор пользователя' PRIMARY KEY AUTO_INCREMENT,
     version             INTEGER       NOT NULL                COMMENT 'Служебное поле hibernate',
-    doc_id              INTEGER                               COMMENT 'Уникальный идентификатор документа',
+    doc_id              INTEGER       NOT NULL                COMMENT 'Уникальный идентификатор документа',
     doc_number          VARCHAR(20)                           COMMENT 'Номер документа пользователя',
     doc_date            DATE                                  COMMENT 'Дата регистрации документа пользователя',
-    user_id             INTEGER                               COMMENT 'Уникальный идентификатор пользователя',
+
 
     FOREIGN KEY (doc_id)          REFERENCES Doc (id),
     FOREIGN KEY (user_id)         REFERENCES User (id)
