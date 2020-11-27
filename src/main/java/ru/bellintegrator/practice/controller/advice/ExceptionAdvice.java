@@ -14,6 +14,6 @@ import ru.bellintegrator.practice.view.global.ErrorView;
 public class ExceptionAdvice {
     @ExceptionHandler(value = Exception.class)
     public ResponseEntity<ErrorView> exception(Exception exception) {
-        return new ResponseEntity<>(new ErrorView(exception), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(new ErrorView(exception.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

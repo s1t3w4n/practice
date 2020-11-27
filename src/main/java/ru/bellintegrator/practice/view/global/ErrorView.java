@@ -13,7 +13,7 @@ public class ErrorView {
      */
     private final String error;
 
-    public ErrorView(Exception exception) {
-        this.error = exception.getMessage() + " UUID: " + UUID.randomUUID();
+    public ErrorView(String message) {
+        this.error = message + " UUID: " + UUID.randomUUID();
     }
 }
