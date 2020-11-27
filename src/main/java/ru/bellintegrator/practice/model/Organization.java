@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -73,6 +74,6 @@ public class Organization {
     @Column(name = "is_active", nullable = false)
     private boolean isActive;
 
-    @OneToMany(targetEntity = Office.class)
+    @OneToMany(targetEntity = Office.class, fetch = FetchType.LAZY)
     private List<Office> offices;
 }

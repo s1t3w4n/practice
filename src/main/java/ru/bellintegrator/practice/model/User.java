@@ -3,7 +3,16 @@ package ru.bellintegrator.practice.model;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Version;
 
 /**
  * Пользователь
@@ -60,11 +69,11 @@ public class User {
     @Column(name = "is_active", nullable = false)
     private boolean isActive;
 
-    @ManyToOne(targetEntity = Office.class)
+    @ManyToOne(targetEntity = Office.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "office_id")
     private Office office;
 
-    @ManyToOne(targetEntity = Country.class)
+    @ManyToOne(targetEntity = Country.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "citizenship_id")
     private Country citizenship;
 

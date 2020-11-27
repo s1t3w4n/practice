@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -57,10 +58,10 @@ public class Office {
     @Column(name = "is_active", nullable = false)
     private boolean isActive;
 
-    @ManyToOne(targetEntity = Organization.class)
+    @ManyToOne(targetEntity = Organization.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "org_id")
     private Organization organization;
 
-    @OneToMany(targetEntity = User.class)
+    @OneToMany(targetEntity = User.class, fetch = FetchType.LAZY)
     private List<User> users;
 }
