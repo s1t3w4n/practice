@@ -23,6 +23,6 @@ public class BodyAdvice implements ResponseBodyAdvice<Object> {
 
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter methodParameter, MediaType mediaType, Class aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
-        return new BodyView(body);
+        return new BodyView<>(body);
     }
 }
