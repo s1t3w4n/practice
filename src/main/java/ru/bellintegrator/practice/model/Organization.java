@@ -72,7 +72,7 @@ public class Organization {
      * Статус организации
      */
     @Column(name = "is_active", nullable = false)
-    private boolean isActive;
+    private Boolean isActive;
 
     @OneToMany(targetEntity = Office.class, fetch = FetchType.LAZY)
     private List<Office> offices;

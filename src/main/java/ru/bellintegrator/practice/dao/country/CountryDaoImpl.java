@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import ru.bellintegrator.practice.model.Country;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
 @Repository
 public class CountryDaoImpl implements CountryDao {
 
+    @PersistenceContext
     private final EntityManager entityManager;
 
     /**
