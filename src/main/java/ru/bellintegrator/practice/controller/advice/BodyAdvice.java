@@ -1,7 +1,6 @@
 package ru.bellintegrator.practice.controller.advice;
 
 import org.springframework.core.MethodParameter;
-import org.springframework.core.ResolvableType;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
@@ -18,7 +17,7 @@ public class BodyAdvice implements ResponseBodyAdvice<Object> {
 
     @Override
     public boolean supports(MethodParameter methodParameter, Class aClass) {
-        return ResolvableType.forMethodParameter(methodParameter).getGeneric().toClass() != ErrorView.class;
+        return !methodParameter.getParameterType().equals(ErrorView.class);
     }
 
     @Override
