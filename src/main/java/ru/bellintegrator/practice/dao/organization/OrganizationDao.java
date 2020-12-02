@@ -15,4 +15,11 @@ public interface OrganizationDao {
      * @return список организаций соответствующих параметрам фильтра
      */
     List<Organization> findAllOrganizationBy(OrganizationViewWithFilterIn filterIn);
+
+    /**
+     * Получить организацию по уникальному идентификатору
+     * @param id уникальный идентификатор организации
+     * @return организация с запрашиваемым уникальным идентификатором
+     */
+    Organization findOrganizationById(Long id);
 }

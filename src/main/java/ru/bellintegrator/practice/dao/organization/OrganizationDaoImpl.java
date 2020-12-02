@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+
 /**
  * {@inheritDoc}
  */
@@ -24,13 +25,14 @@ import java.util.Objects;
 public class OrganizationDaoImpl implements OrganizationDao {
 
     @PersistenceContext
-    private final EntityManager em;
+    private final EntityManager entityManager;
+
     /**
      * {@inheritDoc}
      */
     @Override
     public List<Organization> findAllOrganizationBy(OrganizationViewWithFilterIn filterIn) {
-        CriteriaBuilder builder = em.getCriteriaBuilder();
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Organization> criteriaQuery = builder.createQuery(Organization.class);
         Root<Organization> organizationRoot = criteriaQuery.from(Organization.class);
         List<Predicate> predicates = new ArrayList<>();
@@ -49,9 +51,17 @@ public class OrganizationDaoImpl implements OrganizationDao {
             return Collections.emptyList();
         } else {
             criteriaQuery.select(organizationRoot).where(toPredicatesArray(predicates));
-            TypedQuery<Organization> query = em.createQuery(criteriaQuery);
+            TypedQuery<Organization> query = entityManager.createQuery(criteriaQuery);
             return query.getResultList();
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Organization findOrganizationById(Long id) {
+        return entityManager.find(Organization.class, id);
     }
 
     private static Predicate[] toPredicatesArray(List<Predicate> predicates) {

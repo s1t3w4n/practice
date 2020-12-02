@@ -1,5 +1,6 @@
 package ru.bellintegrator.practice.service.organization;
 
+import ru.bellintegrator.practice.view.organization.OrganizationView;
 import ru.bellintegrator.practice.view.organization.OrganizationViewWithFilterIn;
 import ru.bellintegrator.practice.view.organization.OrganizationViewWithFilterOut;
 
@@ -15,4 +16,11 @@ public interface OrganizationService {
      * @return список организаций соответствующих характеристикам фильтра
      */
     List<OrganizationViewWithFilterOut> getAllOrganizationsBy(OrganizationViewWithFilterIn filterIn);
+
+    /**
+     * Получить организацию по id
+     * @param id уникальный идентификатор организации
+     * @return возвращаемый view организации
+     */
+    OrganizationView getOrganizationById(Long id);
 }
