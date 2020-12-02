@@ -16,12 +16,18 @@ import ru.bellintegrator.practice.view.global.ResultSuccessView;
 @RestControllerAdvice
 public class BodyAdvice implements ResponseBodyAdvice<Object> {
 
+    /**
+     * Отфильтровать все ответы ошибок и ответы без тела
+     */
     @Override
     public boolean supports(MethodParameter methodParameter, Class aClass) {
         return !methodParameter.getParameterType().equals(ErrorView.class)
                 && !methodParameter.getParameterType().equals(ResultSuccessView.class);
     }
 
+    /**
+     * Обернуть все ответы в data[]
+     */
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter methodParameter, MediaType mediaType, Class aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
         return new BodyView<>(body);
