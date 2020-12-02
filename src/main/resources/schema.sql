@@ -26,6 +26,9 @@ CREATE TABLE IF NOT EXISTS Organization (
     is_active   BIT                    DEFAULT TRUE   COMMENT 'Статус организации'
 );
 COMMENT ON TABLE Organization IS 'Организация';
+CREATE INDEX IX_Organization_Name       ON Organization (name);
+CREATE INDEX IX_Organization_inn        ON Organization (inn);
+CREATE INDEX IX_Organization_is_active  ON Organization (is_active);
 
 CREATE TABLE IF NOT EXISTS Office (
     id          INTEGER                               COMMENT 'Уникальный идентификатор' PRIMARY KEY AUTO_INCREMENT,

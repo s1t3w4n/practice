@@ -54,7 +54,7 @@ public class OrganizationDaoImpl implements OrganizationDao {
         }
     }
 
-    private Predicate[] toPredicatesArray(List<Predicate> predicates) {
+    private static Predicate[] toPredicatesArray(List<Predicate> predicates) {
         Predicate[] array = new Predicate[predicates.size()];
         for (int i = 0; i < predicates.size(); i++) {
             array[i] = predicates.get(i);
