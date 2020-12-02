@@ -6,7 +6,7 @@ import lombok.Data;
  * возвращаемое View организации после фильтрации
  */
 @Data
-public class OrganizationViewWithFilterOut {
+public class OrganizationViewListOut {
     /**
      * Уникальный идентификатор организации
      */

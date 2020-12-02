@@ -6,12 +6,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.practice.dao.organization.OrganizationDao;
 import ru.bellintegrator.practice.model.Organization;
-import ru.bellintegrator.practice.view.organization.OrganizationView;
-import ru.bellintegrator.practice.view.organization.OrganizationViewWithFilterIn;
-import ru.bellintegrator.practice.view.organization.OrganizationViewWithFilterOut;
+import ru.bellintegrator.practice.view.global.ResultSuccessView;
+import ru.bellintegrator.practice.view.organization.OrganizationViewIn;
+import ru.bellintegrator.practice.view.organization.OrganizationViewListIn;
+import ru.bellintegrator.practice.view.organization.OrganizationViewListOut;
+import ru.bellintegrator.practice.view.organization.OrganizationViewUpdateIn;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -29,9 +32,9 @@ public class OrganizationServiceImpl implements OrganizationService {
      */
     @Override
     @Transactional(readOnly = true)
-    public List<OrganizationViewWithFilterOut> getAllOrganizationsBy(@Valid OrganizationViewWithFilterIn filterIn) {
+    public List<OrganizationViewListOut> getAllOrganizationsBy(@Valid OrganizationViewListIn filterIn) {
         return organizationDao.findAllOrganizationBy(filterIn).stream()
-                .map(mapperFactory.getMapperFacade(Organization.class, OrganizationViewWithFilterOut.class)::map)
+                .map(mapperFactory.getMapperFacade(Organization.class, OrganizationViewListOut.class)::map)
                 .collect(Collectors.toList());
     }
 
@@ -39,7 +42,32 @@ public class OrganizationServiceImpl implements OrganizationService {
      * {@inheritDoc}
      */
     @Override
-    public OrganizationView getOrganizationById(Long id) {
-        return mapperFactory.getMapperFacade().map(organizationDao.findOrganizationById(id), OrganizationView.class);
+    @Transactional(readOnly = true)
+    public OrganizationViewIn getOrganizationById(Long id) {
+        return mapperFactory.getMapperFacade().map(organizationDao.findOrganizationById(id), OrganizationViewIn.class);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @Transactional
+    public ResultSuccessView updateOrganization(OrganizationViewUpdateIn organization) {
+        if (Objects.nonNull(organization.getId()) && organization.getId() > 0) {
+            Organization persisted = organizationDao.findOrganizationById(organization.getId());
+            if (Objects.nonNull(persisted)) {
+                mapperFactory.getMapperFacade().map(organization, persisted);
+                boolean b = organizationDao.updateOrganization(persisted);
+                if (b) {
+                    return new ResultSuccessView();
+                } else {
+                    throw new RuntimeException("Обновление организации не выполнено");
+                }
+            } else {
+                throw new RuntimeException("id обязательный параметр");
+            }
+        } else {
+            throw new RuntimeException("id обязательный параметр");
+        }
     }
 }

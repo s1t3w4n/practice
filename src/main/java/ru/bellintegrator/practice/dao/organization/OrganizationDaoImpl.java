@@ -3,7 +3,7 @@ package ru.bellintegrator.practice.dao.organization;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 import ru.bellintegrator.practice.model.Organization;
-import ru.bellintegrator.practice.view.organization.OrganizationViewWithFilterIn;
+import ru.bellintegrator.practice.view.organization.OrganizationViewListIn;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -31,7 +31,7 @@ public class OrganizationDaoImpl implements OrganizationDao {
      * {@inheritDoc}
      */
     @Override
-    public List<Organization> findAllOrganizationBy(OrganizationViewWithFilterIn filterIn) {
+    public List<Organization> findAllOrganizationBy(OrganizationViewListIn filterIn) {
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Organization> criteriaQuery = builder.createQuery(Organization.class);
         Root<Organization> organizationRoot = criteriaQuery.from(Organization.class);
@@ -62,6 +62,14 @@ public class OrganizationDaoImpl implements OrganizationDao {
     @Override
     public Organization findOrganizationById(Long id) {
         return entityManager.find(Organization.class, id);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean updateOrganization(Organization organization) {
+        return Objects.nonNull(entityManager.merge(organization));
     }
 
     private static Predicate[] toPredicatesArray(List<Predicate> predicates) {

@@ -3,11 +3,12 @@ package ru.bellintegrator.practice.controller.organization;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import ru.bellintegrator.practice.model.Organization;
 import ru.bellintegrator.practice.service.organization.OrganizationService;
-import ru.bellintegrator.practice.view.organization.OrganizationView;
-import ru.bellintegrator.practice.view.organization.OrganizationViewWithFilterIn;
-import ru.bellintegrator.practice.view.organization.OrganizationViewWithFilterOut;
+import ru.bellintegrator.practice.view.global.ResultSuccessView;
+import ru.bellintegrator.practice.view.organization.OrganizationViewIn;
+import ru.bellintegrator.practice.view.organization.OrganizationViewListIn;
+import ru.bellintegrator.practice.view.organization.OrganizationViewListOut;
+import ru.bellintegrator.practice.view.organization.OrganizationViewUpdateIn;
 
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class OrganizationController {
      * @return список организаций в определённом формате
      */
     @PostMapping(value = "api/organization/list", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<OrganizationViewWithFilterOut> getOrganizationBy(@RequestBody OrganizationViewWithFilterIn filterIn) {
+    public List<OrganizationViewListOut> getOrganizationBy(@RequestBody OrganizationViewListIn filterIn) {
         return organizationService.getAllOrganizationsBy(filterIn);
     }
 
@@ -36,7 +37,18 @@ public class OrganizationController {
      * @return возвращаемый view организации
      */
     @GetMapping(value = "api/organization/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public OrganizationView getOrganization(@PathVariable Long id) {
+    public OrganizationViewIn getOrganization(@PathVariable Long id) {
         return organizationService.getOrganizationById(id);
+    }
+
+    /**
+     * Обновить организацию
+     * @param organization данные для обновления
+     * @return Вью успешного результата
+     */
+    @PostMapping(value = "api/organization/update", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResultSuccessView update(@RequestBody OrganizationViewUpdateIn organization) {
+        System.out.println("asd");
+        return organizationService.updateOrganization(organization);
     }
 }

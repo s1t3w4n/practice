@@ -1,7 +1,7 @@
 package ru.bellintegrator.practice.dao.organization;
 
 import ru.bellintegrator.practice.model.Organization;
-import ru.bellintegrator.practice.view.organization.OrganizationViewWithFilterIn;
+import ru.bellintegrator.practice.view.organization.OrganizationViewListIn;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ public interface OrganizationDao {
      * @param filterIn параметры фильтра
      * @return список организаций соответствующих параметрам фильтра
      */
-    List<Organization> findAllOrganizationBy(OrganizationViewWithFilterIn filterIn);
+    List<Organization> findAllOrganizationBy(OrganizationViewListIn filterIn);
 
     /**
      * Получить организацию по уникальному идентификатору
@@ -22,4 +22,11 @@ public interface OrganizationDao {
      * @return организация с запрашиваемым уникальным идентификатором
      */
     Organization findOrganizationById(Long id);
+
+    /**
+     * Обновить организацию
+     * @param organization данные для обновления
+     * @return возвращаемое значение результата операции
+     */
+    boolean updateOrganization(Organization organization);
 }

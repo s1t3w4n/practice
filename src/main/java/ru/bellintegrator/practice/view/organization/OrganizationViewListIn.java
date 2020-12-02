@@ -9,11 +9,11 @@ import javax.validation.constraints.Size;
  * входящее View организации с параметрами фильтра
  */
 @Data
-public class OrganizationViewWithFilterIn {
+public class OrganizationViewListIn {
     /**
      * Наименование организации
      */
-    @NotNull(message = "Наименование страны обязательный параметр")
+    @NotNull(message = "Наименование организации обязательный параметр")
     private String name;
 
     /**

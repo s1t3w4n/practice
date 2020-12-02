@@ -1,8 +1,10 @@
 package ru.bellintegrator.practice.service.organization;
 
-import ru.bellintegrator.practice.view.organization.OrganizationView;
-import ru.bellintegrator.practice.view.organization.OrganizationViewWithFilterIn;
-import ru.bellintegrator.practice.view.organization.OrganizationViewWithFilterOut;
+import ru.bellintegrator.practice.view.global.ResultSuccessView;
+import ru.bellintegrator.practice.view.organization.OrganizationViewIn;
+import ru.bellintegrator.practice.view.organization.OrganizationViewListIn;
+import ru.bellintegrator.practice.view.organization.OrganizationViewListOut;
+import ru.bellintegrator.practice.view.organization.OrganizationViewUpdateIn;
 
 import java.util.List;
 
@@ -15,12 +17,19 @@ public interface OrganizationService {
      * @param filterIn фильтр
      * @return список организаций соответствующих характеристикам фильтра
      */
-    List<OrganizationViewWithFilterOut> getAllOrganizationsBy(OrganizationViewWithFilterIn filterIn);
+    List<OrganizationViewListOut> getAllOrganizationsBy(OrganizationViewListIn filterIn);
 
     /**
      * Получить организацию по id
      * @param id уникальный идентификатор организации
      * @return возвращаемый view организации
      */
-    OrganizationView getOrganizationById(Long id);
+    OrganizationViewIn getOrganizationById(Long id);
+
+    /**
+     * Обновить организацию
+     * @param organization данные для обновления
+     * @return возвращаемый view успешного сохранения
+     */
+    ResultSuccessView updateOrganization(OrganizationViewUpdateIn organization);
 }
