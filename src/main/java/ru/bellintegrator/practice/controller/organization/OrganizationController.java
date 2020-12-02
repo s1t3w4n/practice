@@ -10,6 +10,7 @@ import ru.bellintegrator.practice.view.organization.OrganizationViewListIn;
 import ru.bellintegrator.practice.view.organization.OrganizationViewListOut;
 import ru.bellintegrator.practice.view.organization.OrganizationViewUpdateIn;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -27,7 +28,7 @@ public class OrganizationController {
      * @return список организаций в определённом формате
      */
     @PostMapping(value = "api/organization/list", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<OrganizationViewListOut> getOrganizationBy(@RequestBody OrganizationViewListIn filterIn) {
+    public List<OrganizationViewListOut> getOrganizationBy(@RequestBody @Valid OrganizationViewListIn filterIn) {
         return organizationService.getAllOrganizationsBy(filterIn);
     }
 
@@ -47,7 +48,7 @@ public class OrganizationController {
      * @return Вью успешного результата
      */
     @PostMapping(value = "api/organization/update", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResultSuccessView update(@RequestBody OrganizationViewUpdateIn organization) {
+    public ResultSuccessView update(@RequestBody @Valid OrganizationViewUpdateIn organization) {
         System.out.println("asd");
         return organizationService.updateOrganization(organization);
     }

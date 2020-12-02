@@ -12,7 +12,6 @@ import ru.bellintegrator.practice.view.organization.OrganizationViewListIn;
 import ru.bellintegrator.practice.view.organization.OrganizationViewListOut;
 import ru.bellintegrator.practice.view.organization.OrganizationViewUpdateIn;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -32,7 +31,7 @@ public class OrganizationServiceImpl implements OrganizationService {
      */
     @Override
     @Transactional(readOnly = true)
-    public List<OrganizationViewListOut> getAllOrganizationsBy(@Valid OrganizationViewListIn filterIn) {
+    public List<OrganizationViewListOut> getAllOrganizationsBy(OrganizationViewListIn filterIn) {
         return organizationDao.findAllOrganizationBy(filterIn).stream()
                 .map(mapperFactory.getMapperFacade(Organization.class, OrganizationViewListOut.class)::map)
                 .collect(Collectors.toList());
