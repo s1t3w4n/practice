@@ -7,10 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.practice.dao.organization.OrganizationDao;
 import ru.bellintegrator.practice.model.Organization;
 import ru.bellintegrator.practice.view.global.ResultSuccessView;
-import ru.bellintegrator.practice.view.organization.OrganizationViewIn;
-import ru.bellintegrator.practice.view.organization.OrganizationViewListIn;
-import ru.bellintegrator.practice.view.organization.OrganizationViewListOut;
-import ru.bellintegrator.practice.view.organization.OrganizationViewUpdateIn;
+import ru.bellintegrator.practice.view.organization.*;
 
 import java.util.List;
 import java.util.Objects;
@@ -42,8 +39,8 @@ public class OrganizationServiceImpl implements OrganizationService {
      */
     @Override
     @Transactional(readOnly = true)
-    public OrganizationViewIn getOrganizationById(Long id) {
-        return mapperFactory.getMapperFacade().map(organizationDao.findOrganizationById(id), OrganizationViewIn.class);
+    public OrganizationView getOrganizationById(Long id) {
+        return mapperFactory.getMapperFacade().map(organizationDao.findOrganizationById(id), OrganizationView.class);
     }
 
     /**
@@ -51,7 +48,7 @@ public class OrganizationServiceImpl implements OrganizationService {
      */
     @Override
     @Transactional
-    public ResultSuccessView updateOrganization(OrganizationViewUpdateIn organization) {
+    public ResultSuccessView updateOrganization(OrganizationViewUpdate organization) {
         if (Objects.nonNull(organization.getId()) && organization.getId() > 0) {
             Organization persisted = organizationDao.findOrganizationById(organization.getId());
             if (Objects.nonNull(persisted)) {
@@ -68,5 +65,15 @@ public class OrganizationServiceImpl implements OrganizationService {
         } else {
             throw new RuntimeException("id обязательный параметр");
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @Transactional
+    public ResultSuccessView saveOrganization(OrganizationViewSave organization) {
+        organizationDao.saveOrganization(mapperFactory.getMapperFacade().map(organization, Organization.class));
+        return new ResultSuccessView();
     }
 }

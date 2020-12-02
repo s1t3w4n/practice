@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
  * View организации для обновления по api
  */
 @Data
-public class OrganizationViewUpdateIn {
+public class OrganizationViewUpdate {
     /**
      * Уникальный идентификатор
      */

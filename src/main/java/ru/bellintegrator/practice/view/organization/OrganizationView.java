@@ -6,7 +6,7 @@ import lombok.Data;
  * View организации для отправки по api
  */
 @Data
-public class OrganizationViewIn {
+public class OrganizationView {
     /**
      * Уникальный идентификатор
      */

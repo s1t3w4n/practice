@@ -5,10 +5,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import ru.bellintegrator.practice.service.organization.OrganizationService;
 import ru.bellintegrator.practice.view.global.ResultSuccessView;
-import ru.bellintegrator.practice.view.organization.OrganizationViewIn;
-import ru.bellintegrator.practice.view.organization.OrganizationViewListIn;
-import ru.bellintegrator.practice.view.organization.OrganizationViewListOut;
-import ru.bellintegrator.practice.view.organization.OrganizationViewUpdateIn;
+import ru.bellintegrator.practice.view.organization.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -38,7 +35,7 @@ public class OrganizationController {
      * @return возвращаемый view организации
      */
     @GetMapping(value = "api/organization/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public OrganizationViewIn getOrganization(@PathVariable Long id) {
+    public OrganizationView getOrganization(@PathVariable Long id) {
         return organizationService.getOrganizationById(id);
     }
 
@@ -48,8 +45,17 @@ public class OrganizationController {
      * @return Вью успешного результата
      */
     @PostMapping(value = "api/organization/update", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResultSuccessView update(@RequestBody @Valid OrganizationViewUpdateIn organization) {
-        System.out.println("asd");
+    public ResultSuccessView updateOrganization(@RequestBody @Valid OrganizationViewUpdate organization) {
         return organizationService.updateOrganization(organization);
+    }
+
+    /**
+     * Сохранить организацию
+     * @param organization данные для сохранения
+     * @return Вью успешного результата
+     */
+    @PostMapping(value = "api/organization/save", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResultSuccessView saveOrganization(@RequestBody @Valid OrganizationViewSave organization) {
+        return organizationService.saveOrganization(organization);
     }
 }

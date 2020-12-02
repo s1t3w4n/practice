@@ -1,10 +1,7 @@
 package ru.bellintegrator.practice.service.organization;
 
 import ru.bellintegrator.practice.view.global.ResultSuccessView;
-import ru.bellintegrator.practice.view.organization.OrganizationViewIn;
-import ru.bellintegrator.practice.view.organization.OrganizationViewListIn;
-import ru.bellintegrator.practice.view.organization.OrganizationViewListOut;
-import ru.bellintegrator.practice.view.organization.OrganizationViewUpdateIn;
+import ru.bellintegrator.practice.view.organization.*;
 
 import java.util.List;
 
@@ -24,12 +21,19 @@ public interface OrganizationService {
      * @param id уникальный идентификатор организации
      * @return возвращаемый view организации
      */
-    OrganizationViewIn getOrganizationById(Long id);
+    OrganizationView getOrganizationById(Long id);
 
     /**
      * Обновить организацию
      * @param organization данные для обновления
+     * @return возвращаемый view успешного обновления
+     */
+    ResultSuccessView updateOrganization(OrganizationViewUpdate organization);
+
+    /**
+     * Сохранить организацию
+     * @param organization данные для сохранения
      * @return возвращаемый view успешного сохранения
      */
-    ResultSuccessView updateOrganization(OrganizationViewUpdateIn organization);
+    ResultSuccessView saveOrganization(OrganizationViewSave organization);
 }

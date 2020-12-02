@@ -72,6 +72,14 @@ public class OrganizationDaoImpl implements OrganizationDao {
         return Objects.nonNull(entityManager.merge(organization));
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void saveOrganization(Organization organization) {
+        entityManager.persist(organization);
+    }
+
     private static Predicate[] toPredicatesArray(List<Predicate> predicates) {
         Predicate[] array = new Predicate[predicates.size()];
         for (int i = 0; i < predicates.size(); i++) {

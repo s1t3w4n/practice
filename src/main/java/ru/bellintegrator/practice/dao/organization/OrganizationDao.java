@@ -29,4 +29,10 @@ public interface OrganizationDao {
      * @return возвращаемое значение результата операции
      */
     boolean updateOrganization(Organization organization);
+
+    /**
+     * Сохранить организацию
+     * @param organization данные для сохранения
+     */
+    void saveOrganization(Organization organization);
 }
