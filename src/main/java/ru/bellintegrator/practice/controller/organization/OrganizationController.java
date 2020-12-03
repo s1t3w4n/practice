@@ -21,12 +21,12 @@ public class OrganizationController {
 
     /**
      * Получить все организации в определённом формате соответствующие фильтру
-     * @param filterIn фильтр по котору происходит поиск
+     * @param filter фильтр по котору происходит поиск
      * @return список организаций в определённом формате
      */
     @PostMapping(value = "api/organization/list", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<OrganizationViewListOut> getOrganizationBy(@RequestBody @Valid OrganizationViewListIn filterIn) {
-        return organizationService.getAllOrganizationsBy(filterIn);
+    public List<OrganizationViewList> getOrganizationBy(@RequestBody @Valid OrganizationViewFilter filter) {
+        return organizationService.getAllOrganizationsBy(filter);
     }
 
     /**

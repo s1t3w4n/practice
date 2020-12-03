@@ -11,10 +11,10 @@ import java.util.List;
 public interface OrganizationService {
     /**
      * Получить список организаций
-     * @param filterIn фильтр
+     * @param filter фильтр
      * @return список организаций соответствующих характеристикам фильтра
      */
-    List<OrganizationViewListOut> getAllOrganizationsBy(OrganizationViewListIn filterIn);
+    List<OrganizationViewList> getAllOrganizationsBy(OrganizationViewFilter filter);
 
     /**
      * Получить организацию по id

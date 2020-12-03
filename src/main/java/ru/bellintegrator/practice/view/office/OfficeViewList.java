@@ -6,7 +6,7 @@ import lombok.Data;
  * возвращаемое View офиса после фильтрации
  */
 @Data
-public class OfficeViewListOut {
+public class OfficeViewList {
 
     /**
      * Уникальный идентификатор офиса

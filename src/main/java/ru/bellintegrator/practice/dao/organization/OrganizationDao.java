@@ -1,7 +1,7 @@
 package ru.bellintegrator.practice.dao.organization;
 
 import ru.bellintegrator.practice.model.Organization;
-import ru.bellintegrator.practice.view.organization.OrganizationViewListIn;
+import ru.bellintegrator.practice.view.organization.OrganizationViewFilter;
 
 import java.util.List;
 
@@ -11,10 +11,10 @@ import java.util.List;
 public interface OrganizationDao {
     /**
      * Получить список организаций, соответствующих параметрам фильтра
-     * @param filterIn параметры фильтра
+     * @param filter параметры фильтра
      * @return список организаций соответствующих параметрам фильтра
      */
-    List<Organization> findAllOrganizationBy(OrganizationViewListIn filterIn);
+    List<Organization> findAllOrganizationBy(OrganizationViewFilter filter);
 
     /**
      * Получить организацию по уникальному идентификатору

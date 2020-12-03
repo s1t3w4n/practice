@@ -9,7 +9,7 @@ import javax.validation.constraints.Size;
  * входящее View организации с параметрами фильтра
  */
 @Data
-public class OrganizationViewListIn {
+public class OrganizationViewFilter {
     /**
      * Наименование организации
      */

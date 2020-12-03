@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
  * входящее View офиса с параметрами фильтра
  */
 @Data
-public class OfficeViewListIn {
+public class OfficeViewFilter {
 
     /**
      * Уникальный идентификатор организации

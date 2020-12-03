@@ -1,8 +1,10 @@
 package ru.bellintegrator.practice.service.office;
 
+import ru.bellintegrator.practice.view.global.ResultSuccessView;
 import ru.bellintegrator.practice.view.office.OfficeView;
-import ru.bellintegrator.practice.view.office.OfficeViewListIn;
-import ru.bellintegrator.practice.view.office.OfficeViewListOut;
+import ru.bellintegrator.practice.view.office.OfficeViewFilter;
+import ru.bellintegrator.practice.view.office.OfficeViewList;
+import ru.bellintegrator.practice.view.office.OfficeViewUpdate;
 
 import java.util.List;
 
@@ -15,7 +17,7 @@ public interface OfficeService {
      * @param filterIn фильтр
      * @return список офисов соответствующих характеристикам фильтра
      */
-    List<OfficeViewListOut> getAllOfficeBy(OfficeViewListIn filterIn);
+    List<OfficeViewList> getAllOfficeBy(OfficeViewFilter filterIn);
 
     /**
      * Получить офис по id
@@ -23,4 +25,11 @@ public interface OfficeService {
      * @return возвращаемый view офиса
      */
     OfficeView getOfficeById(Long id);
+
+    /**
+     * Обновить офис
+     * @param office данные для обновления
+     * @return возвращаемый view успешного обновления
+     */
+    ResultSuccessView updateOffice(OfficeViewUpdate office);
 }

@@ -1,7 +1,7 @@
 package ru.bellintegrator.practice.dao.office;
 
 import ru.bellintegrator.practice.model.Office;
-import ru.bellintegrator.practice.view.office.OfficeViewListIn;
+import ru.bellintegrator.practice.view.office.OfficeViewFilter;
 
 import java.util.List;
 
@@ -12,10 +12,10 @@ public interface OfficeDao {
     /**
      * Получить список офисов, соответствующих параметрам фильтра
      *
-     * @param filterIn параметры фильтра
+     * @param filter параметры фильтра
      * @return список офисов соответствующих параметрам фильтра
      */
-    List<Office> findAllOfficeBy(OfficeViewListIn filterIn);
+    List<Office> findAllOfficeBy(OfficeViewFilter filter);
 
     /**
      * Получить офис по уникальному идентификатору
@@ -23,4 +23,11 @@ public interface OfficeDao {
      * @return офис с запрашиваемым уникальным идентификатором
      */
     Office findOfficeById(Long id);
+
+    /**
+     * Обновить офис
+     * @param office данные для обновления
+     * @return возвращаемое значение результата операции
+     */
+    boolean updateOffice(Office office);
 }

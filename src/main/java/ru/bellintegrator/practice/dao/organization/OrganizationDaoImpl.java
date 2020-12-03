@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 import ru.bellintegrator.practice.model.Organization;
 import ru.bellintegrator.practice.util.DaoUtil;
-import ru.bellintegrator.practice.view.organization.OrganizationViewListIn;
+import ru.bellintegrator.practice.view.organization.OrganizationViewFilter;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -32,20 +32,20 @@ public class OrganizationDaoImpl implements OrganizationDao {
      * {@inheritDoc}
      */
     @Override
-    public List<Organization> findAllOrganizationBy(OrganizationViewListIn filterIn) {
+    public List<Organization> findAllOrganizationBy(OrganizationViewFilter filter) {
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Organization> criteriaQuery = builder.createQuery(Organization.class);
         Root<Organization> organizationRoot = criteriaQuery.from(Organization.class);
         List<Predicate> predicates = new ArrayList<>();
 
-        if (Objects.nonNull(filterIn.getName()) && !filterIn.getName().isEmpty()) {
-            predicates.add(builder.equal(organizationRoot.get("name"), filterIn.getName()));
+        if (Objects.nonNull(filter.getName()) && !filter.getName().isEmpty()) {
+            predicates.add(builder.equal(organizationRoot.get("name"), filter.getName()));
         }
-        if (Objects.nonNull(filterIn.getInn()) && !filterIn.getInn().isEmpty()) {
-            predicates.add(builder.equal(organizationRoot.get("inn"), filterIn.getInn()));
+        if (Objects.nonNull(filter.getInn()) && !filter.getInn().isEmpty()) {
+            predicates.add(builder.equal(organizationRoot.get("inn"), filter.getInn()));
         }
-        if (Objects.nonNull(filterIn.getIsActive())) {
-            predicates.add(builder.equal(organizationRoot.get("isActive"), filterIn.getIsActive()));
+        if (Objects.nonNull(filter.getIsActive())) {
+            predicates.add(builder.equal(organizationRoot.get("isActive"), filter.getIsActive()));
         }
 
         if (predicates.isEmpty()) {

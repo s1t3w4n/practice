@@ -3,13 +3,18 @@ package ru.bellintegrator.practice.service.office;
 import lombok.AllArgsConstructor;
 import ma.glasnost.orika.MapperFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.practice.dao.office.OfficeDao;
 import ru.bellintegrator.practice.model.Office;
+import ru.bellintegrator.practice.model.Organization;
+import ru.bellintegrator.practice.view.global.ResultSuccessView;
 import ru.bellintegrator.practice.view.office.OfficeView;
-import ru.bellintegrator.practice.view.office.OfficeViewListIn;
-import ru.bellintegrator.practice.view.office.OfficeViewListOut;
+import ru.bellintegrator.practice.view.office.OfficeViewFilter;
+import ru.bellintegrator.practice.view.office.OfficeViewList;
+import ru.bellintegrator.practice.view.office.OfficeViewUpdate;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -25,10 +30,11 @@ public class OfficeServiceImpl implements OfficeService {
      * {@inheritDoc}
      */
     @Override
-    public List<OfficeViewListOut> getAllOfficeBy(OfficeViewListIn filterIn) {
-        List<Office> allOfficeBy = officeDao.findAllOfficeBy(filterIn);
+    @Transactional(readOnly = true)
+    public List<OfficeViewList> getAllOfficeBy(OfficeViewFilter filter) {
+        List<Office> allOfficeBy = officeDao.findAllOfficeBy(filter);
         return allOfficeBy.stream()
-                .map(mapperFactory.getMapperFacade(Office.class, OfficeViewListOut.class)::map)
+                .map(mapperFactory.getMapperFacade(Office.class, OfficeViewList.class)::map)
                 .collect(Collectors.toList());
     }
 
@@ -36,7 +42,33 @@ public class OfficeServiceImpl implements OfficeService {
      * {@inheritDoc}
      */
     @Override
+    @Transactional(readOnly = true)
     public OfficeView getOfficeById(Long id) {
         return mapperFactory.getMapperFacade().map(officeDao.findOfficeById(id), OfficeView.class);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @Transactional
+    public ResultSuccessView updateOffice(OfficeViewUpdate office) {
+        if (Objects.nonNull(office.getId()) && office.getId() > 0) {
+            Office persisted = officeDao.findOfficeById(office.getId());
+            if (Objects.nonNull(persisted)) {
+                mapperFactory.getMapperFacade().map(office, persisted);
+                if (officeDao.updateOffice(persisted)) {
+                    return new ResultSuccessView();
+                } else {
+                    throw new RuntimeException("Обновление офиса не выполнено");
+                }
+            } else {
+                throw new RuntimeException("Нет офиса с таким id");
+            }
+        } else {
+            throw new RuntimeException("id обязательный параметр");
+        }
+    }
+
+
 }

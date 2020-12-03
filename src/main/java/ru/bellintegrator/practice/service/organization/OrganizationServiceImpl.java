@@ -28,9 +28,9 @@ public class OrganizationServiceImpl implements OrganizationService {
      */
     @Override
     @Transactional(readOnly = true)
-    public List<OrganizationViewListOut> getAllOrganizationsBy(OrganizationViewListIn filterIn) {
-        return organizationDao.findAllOrganizationBy(filterIn).stream()
-                .map(mapperFactory.getMapperFacade(Organization.class, OrganizationViewListOut.class)::map)
+    public List<OrganizationViewList> getAllOrganizationsBy(OrganizationViewFilter filter) {
+        return organizationDao.findAllOrganizationBy(filter).stream()
+                .map(mapperFactory.getMapperFacade(Organization.class, OrganizationViewList.class)::map)
                 .collect(Collectors.toList());
     }
 
@@ -53,14 +53,13 @@ public class OrganizationServiceImpl implements OrganizationService {
             Organization persisted = organizationDao.findOrganizationById(organization.getId());
             if (Objects.nonNull(persisted)) {
                 mapperFactory.getMapperFacade().map(organization, persisted);
-                boolean b = organizationDao.updateOrganization(persisted);
-                if (b) {
+                if (organizationDao.updateOrganization(persisted)) {
                     return new ResultSuccessView();
                 } else {
                     throw new RuntimeException("Обновление организации не выполнено");
                 }
             } else {
-                throw new RuntimeException("id обязательный параметр");
+                throw new RuntimeException("Нет организации с таким id");
             }
         } else {
             throw new RuntimeException("id обязательный параметр");
