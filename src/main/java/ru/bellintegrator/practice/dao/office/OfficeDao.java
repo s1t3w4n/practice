@@ -16,4 +16,11 @@ public interface OfficeDao {
      * @return список офисов соответствующих параметрам фильтра
      */
     List<Office> findAllOfficeBy(OfficeViewListIn filterIn);
+
+    /**
+     * Получить офис по уникальному идентификатору
+     * @param id уникальный идентификатор офиса
+     * @return офис с запрашиваемым уникальным идентификатором
+     */
+    Office findOfficeById(Long id);
 }

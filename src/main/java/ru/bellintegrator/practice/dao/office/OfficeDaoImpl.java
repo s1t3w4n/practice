@@ -57,4 +57,12 @@ public class OfficeDaoImpl implements OfficeDao {
             return query.getResultList();
         }
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Office findOfficeById(Long id) {
+        return entityManager.find(Office.class, id);
+    }
 }

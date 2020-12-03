@@ -5,6 +5,7 @@ import ma.glasnost.orika.MapperFactory;
 import org.springframework.stereotype.Service;
 import ru.bellintegrator.practice.dao.office.OfficeDao;
 import ru.bellintegrator.practice.model.Office;
+import ru.bellintegrator.practice.view.office.OfficeView;
 import ru.bellintegrator.practice.view.office.OfficeViewListIn;
 import ru.bellintegrator.practice.view.office.OfficeViewListOut;
 
@@ -29,5 +30,13 @@ public class OfficeServiceImpl implements OfficeService {
         return allOfficeBy.stream()
                 .map(mapperFactory.getMapperFacade(Office.class, OfficeViewListOut.class)::map)
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public OfficeView getOfficeById(Long id) {
+        return mapperFactory.getMapperFacade().map(officeDao.findOfficeById(id), OfficeView.class);
     }
 }
