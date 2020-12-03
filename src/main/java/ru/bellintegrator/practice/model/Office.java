@@ -56,7 +56,7 @@ public class Office {
      * Статус офиса
      */
     @Column(name = "is_active", nullable = false)
-    private boolean isActive;
+    private Boolean isActive;
 
     @ManyToOne(targetEntity = Organization.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "org_id")

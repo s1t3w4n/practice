@@ -3,6 +3,7 @@ package ru.bellintegrator.practice.dao.organization;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 import ru.bellintegrator.practice.model.Organization;
+import ru.bellintegrator.practice.util.DaoUtil;
 import ru.bellintegrator.practice.view.organization.OrganizationViewListIn;
 
 import javax.persistence.EntityManager;
@@ -50,7 +51,7 @@ public class OrganizationDaoImpl implements OrganizationDao {
         if (predicates.isEmpty()) {
             return Collections.emptyList();
         } else {
-            criteriaQuery.select(organizationRoot).where(toPredicatesArray(predicates));
+            criteriaQuery.select(organizationRoot).where(DaoUtil.toPredicatesArray(predicates));
             TypedQuery<Organization> query = entityManager.createQuery(criteriaQuery);
             return query.getResultList();
         }
@@ -80,11 +81,4 @@ public class OrganizationDaoImpl implements OrganizationDao {
         entityManager.persist(organization);
     }
 
-    private static Predicate[] toPredicatesArray(List<Predicate> predicates) {
-        Predicate[] array = new Predicate[predicates.size()];
-        for (int i = 0; i < predicates.size(); i++) {
-            array[i] = predicates.get(i);
-        }
-        return array;
-    }
 }

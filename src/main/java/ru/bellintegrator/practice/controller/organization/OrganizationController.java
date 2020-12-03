@@ -21,7 +21,7 @@ public class OrganizationController {
 
     /**
      * Получить все организации в определённом формате соответствующие фильтру
-     * @param filterIn фильтра по котору происходит поиск
+     * @param filterIn фильтр по котору происходит поиск
      * @return список организаций в определённом формате
      */
     @PostMapping(value = "api/organization/list", produces = MediaType.APPLICATION_JSON_VALUE)
