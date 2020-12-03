@@ -6,7 +6,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 /**
- * View организации для обновления по api
+ * View организации для сохранения по api
  */
 @Data
 public class OrganizationViewSave {

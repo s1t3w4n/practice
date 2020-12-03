@@ -30,4 +30,10 @@ public interface OfficeDao {
      * @return возвращаемое значение результата операции
      */
     boolean updateOffice(Office office);
+
+    /**
+     * Сохранить офис
+     * @param office данные для сохранения
+     */
+    void saveOffice(Office office);
 }

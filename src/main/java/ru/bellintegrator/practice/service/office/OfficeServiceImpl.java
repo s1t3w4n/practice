@@ -5,13 +5,11 @@ import ma.glasnost.orika.MapperFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.practice.dao.office.OfficeDao;
+import ru.bellintegrator.practice.dao.organization.OrganizationDao;
 import ru.bellintegrator.practice.model.Office;
 import ru.bellintegrator.practice.model.Organization;
 import ru.bellintegrator.practice.view.global.ResultSuccessView;
-import ru.bellintegrator.practice.view.office.OfficeView;
-import ru.bellintegrator.practice.view.office.OfficeViewFilter;
-import ru.bellintegrator.practice.view.office.OfficeViewList;
-import ru.bellintegrator.practice.view.office.OfficeViewUpdate;
+import ru.bellintegrator.practice.view.office.*;
 
 import java.util.List;
 import java.util.Objects;
@@ -24,6 +22,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class OfficeServiceImpl implements OfficeService {
     private final OfficeDao officeDao;
+    private final OrganizationDao organizationDao;
     private final MapperFactory mapperFactory;
 
     /**
@@ -70,5 +69,20 @@ public class OfficeServiceImpl implements OfficeService {
         }
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @Transactional
+    public ResultSuccessView saveOffice(OfficeViewSave office) {
+        Organization organization = organizationDao.findOrganizationById(office.getOrgId());
+        if (Objects.nonNull(organization)) {
+            Office toPersist = mapperFactory.getMapperFacade().map(office, Office.class);
+            toPersist.setOrganization(organization);
+            officeDao.saveOffice(toPersist);
+            return new ResultSuccessView();
+        } else {
+            throw new RuntimeException("Нет организации с таким id");
+        }
+    }
 }

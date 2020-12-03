@@ -1,10 +1,7 @@
 package ru.bellintegrator.practice.service.office;
 
 import ru.bellintegrator.practice.view.global.ResultSuccessView;
-import ru.bellintegrator.practice.view.office.OfficeView;
-import ru.bellintegrator.practice.view.office.OfficeViewFilter;
-import ru.bellintegrator.practice.view.office.OfficeViewList;
-import ru.bellintegrator.practice.view.office.OfficeViewUpdate;
+import ru.bellintegrator.practice.view.office.*;
 
 import java.util.List;
 
@@ -32,4 +29,11 @@ public interface OfficeService {
      * @return возвращаемый view успешного обновления
      */
     ResultSuccessView updateOffice(OfficeViewUpdate office);
+
+    /**
+     * Сохранить офис
+     * @param office данные для сохранения
+     * @return возвращаемый view успешного сохранения
+     */
+    ResultSuccessView saveOffice(OfficeViewSave office);
 }

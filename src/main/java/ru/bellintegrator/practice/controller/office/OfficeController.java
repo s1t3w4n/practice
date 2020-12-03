@@ -5,10 +5,8 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import ru.bellintegrator.practice.service.office.OfficeService;
 import ru.bellintegrator.practice.view.global.ResultSuccessView;
-import ru.bellintegrator.practice.view.office.OfficeView;
-import ru.bellintegrator.practice.view.office.OfficeViewFilter;
-import ru.bellintegrator.practice.view.office.OfficeViewList;
-import ru.bellintegrator.practice.view.office.OfficeViewUpdate;
+import ru.bellintegrator.practice.view.office.*;
+import ru.bellintegrator.practice.view.organization.OrganizationViewSave;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -27,7 +25,7 @@ public class OfficeController {
      * @return список офисов в определённом формате
      */
     @PostMapping(value = "api/office/list", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<OfficeViewList> getOrganizationBy(@RequestBody @Valid OfficeViewFilter filter) {
+    public List<OfficeViewList> getOfficeBy(@RequestBody @Valid OfficeViewFilter filter) {
         return officeService.getAllOfficeBy(filter);
     }
 
@@ -37,7 +35,7 @@ public class OfficeController {
      * @return возвращаемый view организации
      */
     @GetMapping(value = "api/office/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public OfficeView getOrganization(@PathVariable Long id) {
+    public OfficeView getOffice(@PathVariable Long id) {
         return officeService.getOfficeById(id);
     }
 
@@ -47,7 +45,17 @@ public class OfficeController {
      * @return Вью успешного результата
      */
     @PostMapping(value = "api/office/update", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResultSuccessView updateOrganization(@RequestBody @Valid OfficeViewUpdate office) {
+    public ResultSuccessView updateOffice(@RequestBody @Valid OfficeViewUpdate office) {
         return officeService.updateOffice(office);
+    }
+
+    /**
+     * Сохранить офис
+     * @param office данные для сохранения
+     * @return Вью успешного результата
+     */
+    @PostMapping(value = "api/office/save", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResultSuccessView saveOffice(@RequestBody @Valid OfficeViewSave office) {
+        return officeService.saveOffice(office);
     }
 }
