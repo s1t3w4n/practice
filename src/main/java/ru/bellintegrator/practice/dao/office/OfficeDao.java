@@ -6,7 +6,7 @@ import ru.bellintegrator.practice.view.office.OfficeViewFilter;
 import java.util.List;
 
 /**
- * DAO для работы с Офисом
+ * DAO для работы с офисами
  */
 public interface OfficeDao {
     /**

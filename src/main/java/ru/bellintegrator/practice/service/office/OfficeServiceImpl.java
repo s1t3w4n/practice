@@ -9,7 +9,11 @@ import ru.bellintegrator.practice.dao.organization.OrganizationDao;
 import ru.bellintegrator.practice.model.Office;
 import ru.bellintegrator.practice.model.Organization;
 import ru.bellintegrator.practice.view.global.ResultSuccessView;
-import ru.bellintegrator.practice.view.office.*;
+import ru.bellintegrator.practice.view.office.OfficeView;
+import ru.bellintegrator.practice.view.office.OfficeViewFilter;
+import ru.bellintegrator.practice.view.office.OfficeViewList;
+import ru.bellintegrator.practice.view.office.OfficeViewSave;
+import ru.bellintegrator.practice.view.office.OfficeViewUpdate;
 
 import java.util.List;
 import java.util.Objects;
@@ -31,8 +35,7 @@ public class OfficeServiceImpl implements OfficeService {
     @Override
     @Transactional(readOnly = true)
     public List<OfficeViewList> getAllOfficeBy(OfficeViewFilter filter) {
-        List<Office> allOfficeBy = officeDao.findAllOfficeBy(filter);
-        return allOfficeBy.stream()
+        return officeDao.findAllOfficeBy(filter).stream()
                 .map(mapperFactory.getMapperFacade(Office.class, OfficeViewList.class)::map)
                 .collect(Collectors.toList());
     }

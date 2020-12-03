@@ -1,7 +1,11 @@
 package ru.bellintegrator.practice.service.organization;
 
 import ru.bellintegrator.practice.view.global.ResultSuccessView;
-import ru.bellintegrator.practice.view.organization.*;
+import ru.bellintegrator.practice.view.organization.OrganizationView;
+import ru.bellintegrator.practice.view.organization.OrganizationViewFilter;
+import ru.bellintegrator.practice.view.organization.OrganizationViewList;
+import ru.bellintegrator.practice.view.organization.OrganizationViewSave;
+import ru.bellintegrator.practice.view.organization.OrganizationViewUpdate;
 
 import java.util.List;
 

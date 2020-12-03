@@ -42,7 +42,10 @@ CREATE TABLE IF NOT EXISTS Office (
     FOREIGN KEY (org_id) REFERENCES Organization (id)
 );
 COMMENT ON TABLE Office IS 'Офис';
-CREATE INDEX IX_Office_Org_Id ON Office (org_id);
+CREATE INDEX IX_Office_Org_Id    ON Office (org_id);
+CREATE INDEX IX_Office_Name      ON Office (name);
+CREATE INDEX IX_Office_Phone     ON Office (phone);
+CREATE INDEX IX_Office_Is_Active ON Office (is_active);
 
 CREATE TABLE IF NOT EXISTS User (
     id                  INTEGER                               COMMENT 'Уникальный идентификатор' PRIMARY KEY AUTO_INCREMENT,

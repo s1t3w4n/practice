@@ -2,11 +2,18 @@ package ru.bellintegrator.practice.controller.office;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 import ru.bellintegrator.practice.service.office.OfficeService;
 import ru.bellintegrator.practice.view.global.ResultSuccessView;
-import ru.bellintegrator.practice.view.office.*;
-import ru.bellintegrator.practice.view.organization.OrganizationViewSave;
+import ru.bellintegrator.practice.view.office.OfficeView;
+import ru.bellintegrator.practice.view.office.OfficeViewFilter;
+import ru.bellintegrator.practice.view.office.OfficeViewList;
+import ru.bellintegrator.practice.view.office.OfficeViewSave;
+import ru.bellintegrator.practice.view.office.OfficeViewUpdate;
 
 import javax.validation.Valid;
 import java.util.List;
