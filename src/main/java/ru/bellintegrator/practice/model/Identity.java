@@ -27,8 +27,6 @@ import java.util.Date;
 public class Identity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Id", nullable = false)
     private Long id;
 
     /**

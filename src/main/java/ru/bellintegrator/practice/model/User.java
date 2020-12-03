@@ -66,8 +66,8 @@ public class User {
     /**
      * Статус идентификации
      */
-    @Column(name = "is_active", nullable = false)
-    private boolean isActive;
+    @Column(name = "is_identified", nullable = false)
+    private Boolean isIdentified;
 
     @ManyToOne(targetEntity = Office.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "office_id")
@@ -77,6 +77,6 @@ public class User {
     @JoinColumn(name = "citizenship_id")
     private Country citizenship;
 
-    @OneToOne(targetEntity = Identity.class, fetch = FetchType.LAZY)
+    @OneToOne(targetEntity = Identity.class, mappedBy = "user", fetch = FetchType.LAZY)
     private Identity identity;
 }
