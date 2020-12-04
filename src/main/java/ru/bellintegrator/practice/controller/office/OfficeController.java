@@ -39,7 +39,7 @@ public class OfficeController {
     /**
      * Получить офис по id
      * @param id уникальный идентификатор офиса
-     * @return возвращаемый view организации
+     * @return возвращаемый view офиса
      */
     @GetMapping(value = "api/office/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public OfficeView getOffice(@PathVariable Long id) {

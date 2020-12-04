@@ -16,4 +16,11 @@ public interface UserDao {
      * @return список пользователей соответствующих параметрам фильтра
      */
     List<User> findAllUserBy(UserViewFilter filter);
+
+    /**
+     * Получить пользователя по уникальному идентификатору
+     * @param id уникальный идентификатор пользователя
+     * @return пользователь с запрашиваемым уникальным идентификатором
+     */
+    User findUserById(Long id);
 }

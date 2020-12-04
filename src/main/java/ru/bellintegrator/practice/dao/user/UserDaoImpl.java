@@ -55,6 +55,14 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public User findUserById(Long id) {
+        return entityManager.find(User.class, id);
+    }
+
     private static void putStringFieldPredicate(String fieldName,
                                                 String fieldValue,
                                                 List<Predicate> predicates,
