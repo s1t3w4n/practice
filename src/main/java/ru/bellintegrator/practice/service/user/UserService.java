@@ -1,8 +1,10 @@
 package ru.bellintegrator.practice.service.user;
 
+import ru.bellintegrator.practice.view.global.ResultSuccessView;
 import ru.bellintegrator.practice.view.user.UserView;
 import ru.bellintegrator.practice.view.user.UserViewFilter;
 import ru.bellintegrator.practice.view.user.UserViewList;
+import ru.bellintegrator.practice.view.user.UserViewUpdate;
 
 import java.util.List;
 
@@ -24,4 +26,11 @@ public interface UserService {
      * @return возвращаемый view пользователя
      */
     UserView getUserById(Long id);
+
+    /**
+     * Обновить пользователя
+     * @param user данные для обновления
+     * @return возвращаемый view успешного обновления
+     */
+    ResultSuccessView updateUser(UserViewUpdate user);
 }

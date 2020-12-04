@@ -23,4 +23,11 @@ public interface UserDao {
      * @return пользователь с запрашиваемым уникальным идентификатором
      */
     User findUserById(Long id);
+
+    /**
+     * Обновить пользователя
+     * @param user данные для обновления
+     * @return возвращаемое значение результата операции
+     */
+    boolean updateUser(User user);
 }

@@ -36,7 +36,7 @@ public class DocDaoImpl implements DocDao {
      * {@inheritDoc}
      */
     @Override
-    public Doc getDocById(Long id) {
+    public Doc findDocById(Long id) {
         return entityManager.find(Doc.class, id);
     }
 
@@ -44,11 +44,25 @@ public class DocDaoImpl implements DocDao {
      * {@inheritDoc}
      */
     @Override
-    public Doc getDocByCode(int code) {
+    public Doc findDocByCode(int code) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Doc> query = criteriaBuilder.createQuery(Doc.class);
         Root<Doc> docRoot = query.from(Doc.class);
         Predicate filter = criteriaBuilder.equal(docRoot.get("code"), code);
+        query.select(docRoot).where(filter);
+        TypedQuery<Doc> typedQuery = entityManager.createQuery(query);
+        return typedQuery.getSingleResult();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Doc findDocByName(String name) {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Doc> query = criteriaBuilder.createQuery(Doc.class);
+        Root<Doc> docRoot = query.from(Doc.class);
+        Predicate filter = criteriaBuilder.equal(docRoot.get("name"), name);
         query.select(docRoot).where(filter);
         TypedQuery<Doc> typedQuery = entityManager.createQuery(query);
         return typedQuery.getSingleResult();

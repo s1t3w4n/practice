@@ -63,6 +63,14 @@ public class UserDaoImpl implements UserDao {
         return entityManager.find(User.class, id);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean updateUser(User user) {
+        return Objects.nonNull(entityManager.merge(user));
+    }
+
     private static void putStringFieldPredicate(String fieldName,
                                                 String fieldValue,
                                                 List<Predicate> predicates,

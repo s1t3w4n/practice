@@ -21,14 +21,21 @@ public interface DocDao {
      * @param id уникальный идентификатор документа
      * @return документ, который соответствует уникальному идентификатору
      */
-    Doc getDocById(Long id);
+    Doc findDocById(Long id);
 
     /**
      * Получение типа документа по коду
      * @param code код документа
      * @return документ
      */
-    Doc getDocByCode(int code);
+    Doc findDocByCode(int code);
+
+    /**
+     * Получение типа документа по имени
+     * @param name имя документа
+     * @return документ
+     */
+    Doc findDocByName(String name);
 
     /**
      * Добавление документа
