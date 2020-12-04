@@ -38,6 +38,14 @@ public interface DocDao {
     Doc findDocByName(String name);
 
     /**
+     * Получение типа документа по имени и коду
+     * @param name имя документа
+     * @param code код документа
+     * @return документ
+     */
+    Doc findDocByNameAndCode(String name, int code);
+
+    /**
      * Добавление документа
      * @param doc сохраняемый документ
      */

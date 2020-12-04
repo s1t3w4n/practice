@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS Doc (
     name        VARCHAR(113) NOT NULL UNIQUE          COMMENT 'Название документа'
 );
 COMMENT ON TABLE Doc IS 'Документ';
+CREATE INDEX IX_Doc_Code       ON Doc (code);
 
 CREATE TABLE IF NOT EXISTS Country (
     id          INTEGER                               COMMENT 'Уникальный идентификатор' PRIMARY KEY AUTO_INCREMENT,
@@ -13,6 +14,7 @@ CREATE TABLE IF NOT EXISTS Country (
     name        VARCHAR(60)  NOT NULL UNIQUE          COMMENT 'Название страны'
 );
 COMMENT ON TABLE Country IS 'Страна';
+CREATE INDEX IX_Country_Code   ON Country (code);
 
 CREATE TABLE IF NOT EXISTS Organization (
     id          INTEGER                               COMMENT 'Уникальный идентификатор' PRIMARY KEY AUTO_INCREMENT,
@@ -65,6 +67,10 @@ CREATE TABLE IF NOT EXISTS User (
 COMMENT ON TABLE User IS 'Пользователь';
 CREATE INDEX IX_User_Office_Id        ON User (office_id);
 CREATE INDEX IX_User_Citizenship_Id   ON User (citizenship_id);
+CREATE INDEX IX_User_First_Name       ON User (first_name);
+CREATE INDEX IX_User_Second_Name      ON User (second_name);
+CREATE INDEX IX_User_Middle_Name      ON User (middle_name);
+CREATE INDEX IX_User_Position         ON User (position);
 
 CREATE TABLE IF NOT EXISTS Identity (
     user_id             INTEGER       NOT NULL                COMMENT 'Уникальный идентификатор пользователя' PRIMARY KEY AUTO_INCREMENT,

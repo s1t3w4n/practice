@@ -6,13 +6,19 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.practice.dao.country.CountryDao;
 import ru.bellintegrator.practice.dao.doc.DocDao;
+import ru.bellintegrator.practice.dao.identity.IdentityDao;
 import ru.bellintegrator.practice.dao.office.OfficeDao;
 import ru.bellintegrator.practice.dao.user.UserDao;
-import ru.bellintegrator.practice.model.*;
+import ru.bellintegrator.practice.model.Country;
+import ru.bellintegrator.practice.model.Doc;
+import ru.bellintegrator.practice.model.Identity;
+import ru.bellintegrator.practice.model.Office;
+import ru.bellintegrator.practice.model.User;
 import ru.bellintegrator.practice.view.global.ResultSuccessView;
 import ru.bellintegrator.practice.view.user.UserView;
 import ru.bellintegrator.practice.view.user.UserViewFilter;
 import ru.bellintegrator.practice.view.user.UserViewList;
+import ru.bellintegrator.practice.view.user.UserViewSave;
 import ru.bellintegrator.practice.view.user.UserViewUpdate;
 
 import java.util.List;
@@ -25,9 +31,10 @@ import java.util.stream.Collectors;
 @Service
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
-    private final UserDao userDao;
-    private final OfficeDao officeDao;
     private final DocDao docDao;
+    private final UserDao userDao;
+    private final IdentityDao identityDao;
+    private final OfficeDao officeDao;
     private final CountryDao countryDao;
     private final MapperFactory mapperFactory;
 
@@ -71,11 +78,11 @@ public class UserServiceImpl implements UserService {
             User persisted = userDao.findUserById(user.getId());
             if (Objects.nonNull(persisted)) {
                 mapperFactory.getMapperFacade().map(user, persisted);
-                persisted.setOffice(setOfficeIfExists(user.getOfficeId()));
+                persisted.setOffice(checkIfExistsOffice(officeDao.findOfficeById(user.getOfficeId())));
                 persisted.getIdentity().setDocNumber(user.getDocNumber());
                 persisted.getIdentity().setDocDate(user.getDocDate());
-                persisted.getIdentity().setDoc(findDoc(docDao.findDocByName(user.getDocName())));
-                persisted.setCitizenship(findCountry(countryDao.findCountryByCode(user.getCitizenshipCode())));
+                persisted.getIdentity().setDoc(checkIfExistsDoc(docDao.findDocByName(user.getDocName())));
+                persisted.setCitizenship(checkIfExistsCountry(countryDao.findCountryByCode(user.getCitizenshipCode())));
                 if (userDao.updateUser(persisted)) {
                     return new ResultSuccessView();
                 } else {
@@ -89,16 +96,39 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    private Office setOfficeIfExists(Long officeId) {
-        Office office = officeDao.findOfficeById(officeId);
-        if(Objects.isNull(office)) {
-            throw new RuntimeException("Нет офиса с таким id");
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @Transactional
+    public ResultSuccessView saveUser(UserViewSave user) {
+        Office office = checkIfExistsOffice(officeDao.findOfficeById(user.getOfficeId()));
+        Country country = checkIfExistsCountry(countryDao.findCountryByCode(user.getCitizenshipCode()));
+        Doc doc = checkIfExistsDoc(docDao.findDocByNameAndCode(user.getDocName(), user.getDocCode()));
+
+        User newUser = mapperFactory.getMapperFacade().map(user, User.class);
+        newUser.setOffice(office);
+        newUser.setCitizenship(country);
+        userDao.saveUser(newUser);
+
+        Identity identity = new Identity();
+        identity.setDoc(doc);
+        identity.setDocNumber(user.getDocNumber());
+        identity.setDocDate(user.getDocDate());
+        identity.setUser(newUser);
+        identityDao.saveIdentity(identity);
+        return new ResultSuccessView();
+    }
+
+    private Office checkIfExistsOffice(Office office) {
+        if (Objects.isNull(office)) {
+            throw new RuntimeException("Нет такого офиса");
         } else {
             return office;
         }
     }
 
-    private Doc findDoc(Doc doc) {
+    private Doc checkIfExistsDoc(Doc doc) {
         if (Objects.nonNull(doc)) {
             return doc;
         } else {
@@ -106,7 +136,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    private Country findCountry(Country country) {
+    private Country checkIfExistsCountry(Country country) {
         if (Objects.nonNull(country)) {
             return country;
         } else {

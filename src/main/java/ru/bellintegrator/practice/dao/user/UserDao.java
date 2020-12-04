@@ -30,4 +30,10 @@ public interface UserDao {
      * @return возвращаемое значение результата операции
      */
     boolean updateUser(User user);
+
+    /**
+     * Сохранить пользователя
+     * @param user данные для сохранения
+     */
+    void saveUser(User user);
 }

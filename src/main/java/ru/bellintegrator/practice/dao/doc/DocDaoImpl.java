@@ -72,6 +72,21 @@ public class DocDaoImpl implements DocDao {
      * {@inheritDoc}
      */
     @Override
+    public Doc findDocByNameAndCode(String name, int code) {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Doc> query = criteriaBuilder.createQuery(Doc.class);
+        Root<Doc> docRoot = query.from(Doc.class);
+        Predicate filter = criteriaBuilder.equal(docRoot.get("name"), name);
+        criteriaBuilder.and(filter, criteriaBuilder.equal(docRoot.get("code"), code));
+        query.select(docRoot).where(filter);
+        TypedQuery<Doc> typedQuery = entityManager.createQuery(query);
+        return typedQuery.getSingleResult();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void saveDoc(Doc doc) {
         entityManager.persist(doc);
     }

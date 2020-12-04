@@ -4,6 +4,7 @@ import ru.bellintegrator.practice.view.global.ResultSuccessView;
 import ru.bellintegrator.practice.view.user.UserView;
 import ru.bellintegrator.practice.view.user.UserViewFilter;
 import ru.bellintegrator.practice.view.user.UserViewList;
+import ru.bellintegrator.practice.view.user.UserViewSave;
 import ru.bellintegrator.practice.view.user.UserViewUpdate;
 
 import java.util.List;
@@ -33,4 +34,11 @@ public interface UserService {
      * @return возвращаемый view успешного обновления
      */
     ResultSuccessView updateUser(UserViewUpdate user);
+
+    /**
+     * Сохранить пользователя
+     * @param user данные для сохранения
+     * @return Вью успешного результата
+     */
+    ResultSuccessView saveUser(UserViewSave user);
 }
