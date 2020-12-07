@@ -30,4 +30,3 @@ spring:
 logging:
   level:
     ROOT: ERROR
-

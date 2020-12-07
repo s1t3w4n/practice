@@ -13,7 +13,7 @@ import ru.bellintegrator.practice.view.global.ResultSuccessView;
 /**
  * Преобразователь всех контроллеров
  */
-@RestControllerAdvice
+@RestControllerAdvice(basePackages = "ru.bellintegrator.practice.controller")
 public class BodyAdvice implements ResponseBodyAdvice<Object> {
 
     /**
