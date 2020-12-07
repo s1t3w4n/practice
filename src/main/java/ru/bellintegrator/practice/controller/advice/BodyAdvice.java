@@ -8,21 +8,19 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 import ru.bellintegrator.practice.view.global.BodyView;
 import ru.bellintegrator.practice.view.global.ErrorView;
-import ru.bellintegrator.practice.view.global.ResultSuccessView;
 
 /**
- * Преобразователь всех контроллеров
+ * Преобразователь всех пользовательских контроллеров
  */
 @RestControllerAdvice(basePackages = "ru.bellintegrator.practice.controller")
 public class BodyAdvice implements ResponseBodyAdvice<Object> {
 
     /**
-     * Отфильтровать все ответы ошибок и ответы без тела
+     * Отфильтровать все ответы ошибок
      */
     @Override
     public boolean supports(MethodParameter methodParameter, Class aClass) {
-        return !methodParameter.getParameterType().equals(ErrorView.class)
-                && !methodParameter.getParameterType().equals(ResultSuccessView.class);
+        return !methodParameter.getParameterType().equals(ErrorView.class);
     }
 
     /**
