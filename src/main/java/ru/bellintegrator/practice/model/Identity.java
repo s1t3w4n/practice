@@ -46,7 +46,7 @@ public class Identity {
     @Temporal(TemporalType.DATE)
     private Date docDate;
 
-    @ManyToOne(targetEntity = Doc.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = Doc.class)
     @JoinColumn(name = "doc_id")
     private Doc doc;
 

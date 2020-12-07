@@ -3,7 +3,6 @@ package ru.bellintegrator.practice.dao.office;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 import ru.bellintegrator.practice.model.Office;
-import ru.bellintegrator.practice.util.DaoUtil;
 import ru.bellintegrator.practice.view.office.OfficeViewFilter;
 
 import javax.persistence.EntityManager;
@@ -56,7 +55,7 @@ public class OfficeDaoImpl implements OfficeDao {
         if (predicates.isEmpty()) {
             return Collections.emptyList();
         } else {
-            criteriaQuery.select(officeRoot).where(DaoUtil.toPredicatesArray(predicates));
+            criteriaQuery.select(officeRoot).where(predicates.toArray(new Predicate[0]));
             TypedQuery<Office> query = entityManager.createQuery(criteriaQuery);
             return query.getResultList();
         }

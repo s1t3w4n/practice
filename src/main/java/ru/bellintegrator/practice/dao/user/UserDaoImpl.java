@@ -3,7 +3,6 @@ package ru.bellintegrator.practice.dao.user;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 import ru.bellintegrator.practice.model.User;
-import ru.bellintegrator.practice.util.DaoUtil;
 import ru.bellintegrator.practice.view.user.UserViewFilter;
 
 import javax.persistence.EntityManager;
@@ -53,7 +52,7 @@ public class UserDaoImpl implements UserDao {
         if (predicates.isEmpty()) {
             return Collections.emptyList();
         } else {
-            criteriaQuery.select(userRoot).where(DaoUtil.toPredicatesArray(predicates));
+            criteriaQuery.select(userRoot).where(predicates.toArray(new Predicate[0]));
             TypedQuery<User> query = entityManager.createQuery(criteriaQuery);
             return query.getResultList();
         }
