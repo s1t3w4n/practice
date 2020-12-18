@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import ru.bellintegrator.practice.exception.IdNotFoundException;
+import ru.bellintegrator.practice.exception.EntityNotFoundException;
 import ru.bellintegrator.practice.exception.WrongDataException;
 import ru.bellintegrator.practice.view.global.ErrorView;
 
@@ -15,7 +15,7 @@ import ru.bellintegrator.practice.view.global.ErrorView;
 public class ExceptionAdvice {
     @ExceptionHandler(value = Exception.class)
     public ResponseEntity<ErrorView> exception(Exception exception) {
-        if (exception instanceof IdNotFoundException) {
+        if (exception instanceof EntityNotFoundException) {
             return makeErrorResponse(exception, HttpStatus.NOT_FOUND);
         } else if (exception instanceof WrongDataException) {
             return makeErrorResponse(exception, HttpStatus.BAD_REQUEST);

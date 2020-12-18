@@ -9,7 +9,7 @@ import ru.bellintegrator.practice.dao.doc.DocDao;
 import ru.bellintegrator.practice.dao.identity.IdentityDao;
 import ru.bellintegrator.practice.dao.office.OfficeDao;
 import ru.bellintegrator.practice.dao.user.UserDao;
-import ru.bellintegrator.practice.exception.IdNotFoundException;
+import ru.bellintegrator.practice.exception.EntityNotFoundException;
 import ru.bellintegrator.practice.exception.WrongDataException;
 import ru.bellintegrator.practice.model.Country;
 import ru.bellintegrator.practice.model.Doc;
@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService {
                     .register();
             return mapperFactory.getMapperFacade().map(user, UserView.class);
         } else {
-            throw new IdNotFoundException(User.class.getSimpleName());
+            throw new EntityNotFoundException(User.class.getSimpleName());
         }
     }
 
@@ -98,7 +98,7 @@ public class UserServiceImpl implements UserService {
             mapperFactory.getMapperFacade().map(view, user);
             return new ResultSuccessView();
         } else {
-            throw new IdNotFoundException(User.class.getSimpleName());
+            throw new EntityNotFoundException(User.class.getSimpleName());
         }
     }
 
@@ -129,10 +129,10 @@ public class UserServiceImpl implements UserService {
     }
 
     private Office checkIfExistsOffice(Office office) {
-        if (Objects.isNull(office)) {
-            throw new RuntimeException("Нет такого офиса");
-        } else {
+        if (Objects.nonNull(office)) {
             return office;
+        } else {
+            throw new EntityNotFoundException(Office.class.getSimpleName());
         }
     }
 
@@ -140,7 +140,7 @@ public class UserServiceImpl implements UserService {
         if (Objects.nonNull(doc)) {
             return doc;
         } else {
-            throw new RuntimeException("Нет такого документа");
+            throw new EntityNotFoundException(Doc.class.getSimpleName());
         }
     }
 
@@ -148,7 +148,7 @@ public class UserServiceImpl implements UserService {
         if (Objects.nonNull(country)) {
             return country;
         } else {
-            throw new RuntimeException("Нет такой страны в справочнике стран");
+            throw new EntityNotFoundException(Country.class.getSimpleName());
         }
     }
 

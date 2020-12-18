@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.practice.dao.office.OfficeDao;
 import ru.bellintegrator.practice.dao.organization.OrganizationDao;
-import ru.bellintegrator.practice.exception.IdNotFoundException;
+import ru.bellintegrator.practice.exception.EntityNotFoundException;
 import ru.bellintegrator.practice.model.Office;
 import ru.bellintegrator.practice.model.Organization;
 import ru.bellintegrator.practice.view.global.ResultSuccessView;
@@ -51,7 +51,7 @@ public class OfficeServiceImpl implements OfficeService {
         if (Objects.nonNull(view)) {
             return view;
         } else {
-            throw new IdNotFoundException(Office.class.getSimpleName());
+            throw new EntityNotFoundException(Office.class.getSimpleName());
         }
     }
 
@@ -70,7 +70,7 @@ public class OfficeServiceImpl implements OfficeService {
             mapperFactory.getMapperFacade().map(view, office);
             return new ResultSuccessView();
         } else {
-            throw new IdNotFoundException(Office.class.getSimpleName());
+            throw new EntityNotFoundException(Office.class.getSimpleName());
         }
     }
 
