@@ -73,14 +73,6 @@ public class OfficeDaoImpl implements OfficeDao {
      * {@inheritDoc}
      */
     @Override
-    public boolean updateOffice(Office office) {
-        return Objects.nonNull(entityManager.merge(office));
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public void saveOffice(Office office) {
         entityManager.persist(office);
     }

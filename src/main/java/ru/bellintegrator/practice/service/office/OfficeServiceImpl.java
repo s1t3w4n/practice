@@ -61,20 +61,16 @@ public class OfficeServiceImpl implements OfficeService {
     @Override
     @Transactional
     public ResultSuccessView updateOffice(OfficeViewUpdate view) {
-        if (Objects.nonNull(view.getId()) && view.getId() > 0) {
-            Office persisted = officeDao.findOfficeById(view.getId());
-            if (Objects.nonNull(persisted)) {
-                mapperFactory.getMapperFacade().map(view, persisted);
-                if (officeDao.updateOffice(persisted)) {
-                    return new ResultSuccessView();
-                } else {
-                    throw new RuntimeException("Обновление офиса не выполнено");
-                }
-            } else {
-                throw new RuntimeException("Нет офиса с таким id");
-            }
+        Office office = officeDao.findOfficeById(view.getId());
+        if (Objects.nonNull(office)) {
+            mapperFactory.classMap(OfficeViewUpdate.class, Office.class)
+                    .mapNulls(false)
+                    .byDefault()
+                    .register();
+            mapperFactory.getMapperFacade().map(view, office);
+            return new ResultSuccessView();
         } else {
-            throw new RuntimeException("id обязательный параметр");
+            throw new IdNotFound();
         }
     }
 

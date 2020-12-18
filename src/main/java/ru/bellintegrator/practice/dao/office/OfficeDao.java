@@ -25,13 +25,6 @@ public interface OfficeDao {
     Office findOfficeById(Long id);
 
     /**
-     * Обновить офис
-     * @param office данные для обновления
-     * @return возвращаемое значение результата операции
-     */
-    boolean updateOffice(Office office);
-
-    /**
      * Сохранить офис
      * @param office данные для сохранения
      */
