@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.practice.dao.office.OfficeDao;
 import ru.bellintegrator.practice.dao.organization.OrganizationDao;
+import ru.bellintegrator.practice.exception.IdNotFound;
 import ru.bellintegrator.practice.model.Office;
 import ru.bellintegrator.practice.model.Organization;
 import ru.bellintegrator.practice.view.global.ResultSuccessView;
@@ -46,7 +47,12 @@ public class OfficeServiceImpl implements OfficeService {
     @Override
     @Transactional(readOnly = true)
     public OfficeView getOfficeById(Long id) {
-        return mapperFactory.getMapperFacade().map(officeDao.findOfficeById(id), OfficeView.class);
+        OfficeView view = mapperFactory.getMapperFacade().map(officeDao.findOfficeById(id), OfficeView.class);
+        if (Objects.nonNull(view)) {
+            return view;
+        } else {
+            throw new IdNotFound();
+        }
     }
 
     /**
@@ -54,11 +60,11 @@ public class OfficeServiceImpl implements OfficeService {
      */
     @Override
     @Transactional
-    public ResultSuccessView updateOffice(OfficeViewUpdate office) {
-        if (Objects.nonNull(office.getId()) && office.getId() > 0) {
-            Office persisted = officeDao.findOfficeById(office.getId());
+    public ResultSuccessView updateOffice(OfficeViewUpdate view) {
+        if (Objects.nonNull(view.getId()) && view.getId() > 0) {
+            Office persisted = officeDao.findOfficeById(view.getId());
             if (Objects.nonNull(persisted)) {
-                mapperFactory.getMapperFacade().map(office, persisted);
+                mapperFactory.getMapperFacade().map(view, persisted);
                 if (officeDao.updateOffice(persisted)) {
                     return new ResultSuccessView();
                 } else {

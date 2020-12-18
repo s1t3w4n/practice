@@ -29,10 +29,10 @@ public interface OfficeService {
 
     /**
      * Обновить офис
-     * @param office данные для обновления
+     * @param view данные для обновления
      * @return возвращаемый view успешного обновления
      */
-    ResultSuccessView updateOffice(OfficeViewUpdate office);
+    ResultSuccessView updateOffice(OfficeViewUpdate view);
 
     /**
      * Сохранить офис

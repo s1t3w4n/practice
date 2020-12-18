@@ -48,12 +48,12 @@ public class OfficeController {
 
     /**
      * Обновить офис
-     * @param office данные для обновления
+     * @param view данные для обновления
      * @return Вью успешного результата
      */
     @PostMapping(value = "api/office/update", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResultSuccessView updateOffice(@RequestBody @Valid OfficeViewUpdate office) {
-        return officeService.updateOffice(office);
+    public ResultSuccessView updateOffice(@RequestBody @Valid OfficeViewUpdate view) {
+        return officeService.updateOffice(view);
     }
 
     /**

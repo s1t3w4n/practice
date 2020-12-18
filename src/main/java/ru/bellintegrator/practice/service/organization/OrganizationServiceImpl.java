@@ -45,7 +45,12 @@ public class OrganizationServiceImpl implements OrganizationService {
     @Override
     @Transactional(readOnly = true)
     public OrganizationView getOrganizationById(Long id) {
-        return mapperFactory.getMapperFacade().map(organizationDao.findOrganizationById(id), OrganizationView.class);
+        OrganizationView view = mapperFactory.getMapperFacade().map(organizationDao.findOrganizationById(id), OrganizationView.class);
+        if (Objects.nonNull(view)) {
+            return view;
+        } else {
+            throw new IdNotFound();
+        }
     }
 
     /**
