@@ -5,6 +5,7 @@ import ma.glasnost.orika.MapperFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.practice.dao.organization.OrganizationDao;
+import ru.bellintegrator.practice.exceptions.IdNotFound;
 import ru.bellintegrator.practice.model.Organization;
 import ru.bellintegrator.practice.view.global.ResultSuccessView;
 import ru.bellintegrator.practice.view.organization.OrganizationView;
@@ -53,20 +54,15 @@ public class OrganizationServiceImpl implements OrganizationService {
     @Override
     @Transactional
     public ResultSuccessView updateOrganization(OrganizationViewUpdate organization) {
-        if (Objects.nonNull(organization.getId()) && organization.getId() > 0) {
-            Organization persisted = organizationDao.findOrganizationById(organization.getId());
-            if (Objects.nonNull(persisted)) {
-                mapperFactory.getMapperFacade().map(organization, persisted);
-                if (organizationDao.updateOrganization(persisted)) {
-                    return new ResultSuccessView();
-                } else {
-                    throw new RuntimeException("Обновление организации не выполнено");
-                }
-            } else {
-                throw new RuntimeException("Нет организации с таким id");
-            }
+        if (organizationDao.isExists(organization.getId())) {
+            mapperFactory.classMap(Organization.class, OrganizationViewUpdate.class)
+                    .mapNulls(false).mapNullsInReverse(false)
+                    .byDefault()
+                    .register();
+            organizationDao.updateOrganization(mapperFactory.getMapperFacade().map(organization, Organization.class));
+            return new ResultSuccessView();
         } else {
-            throw new RuntimeException("id обязательный параметр");
+            throw new IdNotFound();
         }
     }
 

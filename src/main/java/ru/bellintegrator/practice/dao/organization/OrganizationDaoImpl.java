@@ -6,6 +6,7 @@ import ru.bellintegrator.practice.model.Organization;
 import ru.bellintegrator.practice.view.organization.OrganizationViewFilter;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -68,8 +69,8 @@ public class OrganizationDaoImpl implements OrganizationDao {
      * {@inheritDoc}
      */
     @Override
-    public boolean updateOrganization(Organization organization) {
-        return Objects.nonNull(entityManager.merge(organization));
+    public void updateOrganization(Organization organization) {
+        entityManager.merge(organization);
     }
 
     /**
@@ -78,6 +79,16 @@ public class OrganizationDaoImpl implements OrganizationDao {
     @Override
     public void saveOrganization(Organization organization) {
         entityManager.persist(organization);
+    }
+
+    @Override
+    public boolean isExists(Long id) {
+        try {
+            entityManager.getReference(Organization.class, id);
+            return true;
+        } catch (EntityNotFoundException e) {
+            return false;
+        }
     }
 
 }
