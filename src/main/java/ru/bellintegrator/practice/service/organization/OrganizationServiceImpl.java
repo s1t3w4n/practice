@@ -5,7 +5,7 @@ import ma.glasnost.orika.MapperFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.practice.dao.organization.OrganizationDao;
-import ru.bellintegrator.practice.exceptions.IdNotFound;
+import ru.bellintegrator.practice.exception.IdNotFound;
 import ru.bellintegrator.practice.model.Organization;
 import ru.bellintegrator.practice.view.global.ResultSuccessView;
 import ru.bellintegrator.practice.view.organization.OrganizationView;
@@ -15,7 +15,6 @@ import ru.bellintegrator.practice.view.organization.OrganizationViewSave;
 import ru.bellintegrator.practice.view.organization.OrganizationViewUpdate;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**

@@ -1,4 +1,4 @@
-package ru.bellintegrator.practice.exceptions;
+package ru.bellintegrator.practice.exception;
 
 public class IdNotFound extends RuntimeException {
 
