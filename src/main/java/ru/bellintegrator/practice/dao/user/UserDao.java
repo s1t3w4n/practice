@@ -25,13 +25,6 @@ public interface UserDao {
     User findUserById(Long id);
 
     /**
-     * Обновить пользователя
-     * @param user данные для обновления
-     * @return возвращаемое значение результата операции
-     */
-    boolean updateUser(User user);
-
-    /**
      * Сохранить пользователя
      * @param user данные для сохранения
      */

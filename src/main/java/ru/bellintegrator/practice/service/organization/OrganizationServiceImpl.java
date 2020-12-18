@@ -5,7 +5,7 @@ import ma.glasnost.orika.MapperFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.practice.dao.organization.OrganizationDao;
-import ru.bellintegrator.practice.exception.IdNotFound;
+import ru.bellintegrator.practice.exception.IdNotFoundException;
 import ru.bellintegrator.practice.model.Organization;
 import ru.bellintegrator.practice.view.global.ResultSuccessView;
 import ru.bellintegrator.practice.view.organization.OrganizationView;
@@ -49,7 +49,7 @@ public class OrganizationServiceImpl implements OrganizationService {
         if (Objects.nonNull(view)) {
             return view;
         } else {
-            throw new IdNotFound();
+            throw new IdNotFoundException(Organization.class.getSimpleName());
         }
     }
 
@@ -68,7 +68,7 @@ public class OrganizationServiceImpl implements OrganizationService {
             mapperFactory.getMapperFacade().map(view, organization);
             return new ResultSuccessView();
         } else {
-            throw new IdNotFound();
+            throw new IdNotFoundException(Organization.class.getSimpleName());
         }
     }
 

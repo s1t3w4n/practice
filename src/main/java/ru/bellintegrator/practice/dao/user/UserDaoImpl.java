@@ -70,14 +70,6 @@ public class UserDaoImpl implements UserDao {
      * {@inheritDoc}
      */
     @Override
-    public boolean updateUser(User user) {
-        return Objects.nonNull(entityManager.merge(user));
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public void saveUser(User user) {
         entityManager.persist(user);
     }

@@ -48,12 +48,12 @@ public class UserController {
 
     /**
      * Обновить пользователя
-     * @param user данные для обновления
+     * @param view данные для обновления
      * @return Вью успешного результата
      */
     @PostMapping(value = "api/user/update", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResultSuccessView updateUser(@RequestBody @Valid UserViewUpdate user) {
-        return userService.updateUser(user);
+    public ResultSuccessView updateUser(@RequestBody @Valid UserViewUpdate view) {
+        return userService.updateUser(view);
     }
 
     /**

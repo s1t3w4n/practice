@@ -30,10 +30,10 @@ public interface UserService {
 
     /**
      * Обновить пользователя
-     * @param user данные для обновления
+     * @param view данные для обновления
      * @return возвращаемый view успешного обновления
      */
-    ResultSuccessView updateUser(UserViewUpdate user);
+    ResultSuccessView updateUser(UserViewUpdate view);
 
     /**
      * Сохранить пользователя
