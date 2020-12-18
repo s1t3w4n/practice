@@ -9,6 +9,7 @@ import ru.bellintegrator.practice.dao.doc.DocDao;
 import ru.bellintegrator.practice.dao.identity.IdentityDao;
 import ru.bellintegrator.practice.dao.office.OfficeDao;
 import ru.bellintegrator.practice.dao.user.UserDao;
+import ru.bellintegrator.practice.exception.IdNotFound;
 import ru.bellintegrator.practice.model.Country;
 import ru.bellintegrator.practice.model.Doc;
 import ru.bellintegrator.practice.model.Identity;
@@ -56,16 +57,19 @@ public class UserServiceImpl implements UserService {
     @Transactional(readOnly = true)
     public UserView getUserById(Long id) {
         User persisted = userDao.findUserById(id);
-        if (Objects.isNull(persisted)) {
-            throw new RuntimeException("Нет пользователя с таким id");
+        if (Objects.nonNull(persisted)) {
+            mapperFactory.classMap(User.class, UserView.class)
+                    .field("identity.docDate", "docDate")
+                    .field("identity.docNumber", "docNumber")
+                    .field("identity.doc.name", "docName")
+                    .field("citizenship.name", "citizenshipName")
+                    .field("citizenship.code", "citizenshipCode")
+                    .byDefault()
+                    .register();
+            return mapperFactory.getMapperFacade().map(persisted, UserView.class);
+        } else {
+            throw new IdNotFound();
         }
-        UserView user = mapperFactory.getMapperFacade().map(persisted, UserView.class);
-        user.setDocDate(persisted.getIdentity().getDocDate());
-        user.setDocNumber(persisted.getIdentity().getDocNumber());
-        user.setDocName(persisted.getIdentity().getDoc().getName());
-        user.setCitizenshipCode(persisted.getCitizenship().getCode());
-        user.setCitizenshipName(persisted.getCitizenship().getName());
-        return user;
     }
 
     /**
