@@ -29,10 +29,10 @@ public interface OrganizationService {
 
     /**
      * Обновить организацию
-     * @param organization данные для обновления
+     * @param view данные для обновления
      * @return возвращаемый view успешного обновления
      */
-    ResultSuccessView updateOrganization(OrganizationViewUpdate organization);
+    ResultSuccessView updateOrganization(OrganizationViewUpdate view);
 
     /**
      * Сохранить организацию

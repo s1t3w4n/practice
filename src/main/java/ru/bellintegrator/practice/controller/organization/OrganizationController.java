@@ -49,12 +49,12 @@ public class OrganizationController {
 
     /**
      * Обновить организацию
-     * @param organization данные для обновления
+     * @param view данные для обновления
      * @return Вью успешного результата
      */
     @PostMapping(value = "api/organization/update", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResultSuccessView updateOrganization(@RequestBody @Valid OrganizationViewUpdate organization) {
-        return organizationService.updateOrganization(organization);
+    public ResultSuccessView updateOrganization(@RequestBody @Valid OrganizationViewUpdate view) {
+        return organizationService.updateOrganization(view);
     }
 
     /**

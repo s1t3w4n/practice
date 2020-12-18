@@ -24,21 +24,9 @@ public interface OrganizationDao {
     Organization findOrganizationById(Long id);
 
     /**
-     * Обновить организацию
-     * @param organization данные для обновления
-     */
-    void updateOrganization(Organization organization);
-
-    /**
      * Сохранить организацию
      * @param organization данные для сохранения
      */
     void saveOrganization(Organization organization);
 
-    /**
-     * Проверяет наличие в базе данных организации с таким id
-     * @param id искомое id организации
-     * @return логический результат поиска организации
-     */
-    boolean isExists(Long id);
 }

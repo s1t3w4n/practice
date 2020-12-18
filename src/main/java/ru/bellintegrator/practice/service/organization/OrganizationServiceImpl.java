@@ -15,6 +15,7 @@ import ru.bellintegrator.practice.view.organization.OrganizationViewSave;
 import ru.bellintegrator.practice.view.organization.OrganizationViewUpdate;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -52,13 +53,14 @@ public class OrganizationServiceImpl implements OrganizationService {
      */
     @Override
     @Transactional
-    public ResultSuccessView updateOrganization(OrganizationViewUpdate organization) {
-        if (organizationDao.isExists(organization.getId())) {
-            mapperFactory.classMap(Organization.class, OrganizationViewUpdate.class)
-                    .mapNulls(false).mapNullsInReverse(false)
+    public ResultSuccessView updateOrganization(OrganizationViewUpdate view) {
+        Organization organization = organizationDao.findOrganizationById(view.getId());
+        if (Objects.nonNull(organization)) {
+            mapperFactory.classMap(OrganizationViewUpdate.class, Organization.class)
+                    .mapNulls(false)
                     .byDefault()
                     .register();
-            organizationDao.updateOrganization(mapperFactory.getMapperFacade().map(organization, Organization.class));
+            mapperFactory.getMapperFacade().map(view, organization);
             return new ResultSuccessView();
         } else {
             throw new IdNotFound();
