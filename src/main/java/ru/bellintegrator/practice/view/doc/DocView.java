@@ -19,7 +19,7 @@ public class DocView {
     /**
      * Название документа
      */
-    @Size(max = 113)
+    @Size(max = 128)
     @NotNull(message = "Название документа обязательный параметр")
     private String name;
 }

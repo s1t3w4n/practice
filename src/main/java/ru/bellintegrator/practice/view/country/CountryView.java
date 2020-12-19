@@ -19,7 +19,7 @@ public class CountryView {
     /**
      * Название страны
      */
-    @Size(max = 60)
+    @Size(max = 64)
     @NotNull(message = "Название страны обязательный параметр")
     private String name;
 }

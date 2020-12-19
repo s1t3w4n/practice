@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS Doc (
     id          INTEGER                               COMMENT 'Уникальный идентификатор' PRIMARY KEY AUTO_INCREMENT,
     version     INTEGER      NOT NULL                 COMMENT 'Служебное поле hibernate',
     code        INTEGER      NOT NULL UNIQUE          COMMENT 'Код документа',
-    name        VARCHAR(113) NOT NULL UNIQUE          COMMENT 'Название документа'
+    name        VARCHAR(256) NOT NULL UNIQUE          COMMENT 'Название документа'
 );
 COMMENT ON TABLE Doc IS 'Документ';
 CREATE INDEX IX_Doc_Code       ON Doc (code);
@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS Country (
     id          INTEGER                               COMMENT 'Уникальный идентификатор' PRIMARY KEY AUTO_INCREMENT,
     version     INTEGER      NOT NULL                 COMMENT 'Служебное поле hibernate',
     code        INTEGER      NOT NULL UNIQUE          COMMENT 'Код страны',
-    name        VARCHAR(60)  NOT NULL UNIQUE          COMMENT 'Название страны'
+    name        VARCHAR(128)  NOT NULL UNIQUE          COMMENT 'Название страны'
 );
 COMMENT ON TABLE Country IS 'Страна';
 CREATE INDEX IX_Country_Code   ON Country (code);
@@ -19,8 +19,8 @@ CREATE INDEX IX_Country_Code   ON Country (code);
 CREATE TABLE IF NOT EXISTS Organization (
     id          INTEGER                               COMMENT 'Уникальный идентификатор' PRIMARY KEY AUTO_INCREMENT,
     version     INTEGER       NOT NULL                COMMENT 'Служебное поле hibernate',
-    name        VARCHAR(30)   NOT NULL                COMMENT 'Название организации',
-    full_name   VARCHAR(100)  NOT NULL                COMMENT 'Полное название организации',
+    name        VARCHAR(64)   NOT NULL                COMMENT 'Название организации',
+    full_name   VARCHAR(128)  NOT NULL                COMMENT 'Полное название организации',
     inn         VARCHAR(10)   NOT NULL UNIQUE         COMMENT 'ИНН организации',
     kpp         VARCHAR(9)    NOT NULL                COMMENT 'КПП организации',
     address     VARCHAR(255)  NOT NULL                COMMENT 'Адрес организации',
