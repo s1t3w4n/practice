@@ -24,18 +24,24 @@ public class ExceptionAdvice {
 
     @ExceptionHandler(value = Exception.class)
     public ResponseEntity<ErrorView> exception(Exception exception) {
-        String evaluatedMessage = exception.getMessage() + " UUID: " + UUID.randomUUID();
-        LOGGER.warn(evaluatedMessage, exception);
+        String uuid = " UUID: " + UUID.randomUUID();
         if (exception instanceof EntityNotFoundException) {
-            return makeErrorResponse(evaluatedMessage, HttpStatus.NOT_FOUND);
+            String identifiedMessage = exception.getMessage() + uuid;
+            LOGGER.warn(identifiedMessage);
+            return makeErrorResponse(identifiedMessage, HttpStatus.NOT_FOUND);
         } else if (exception instanceof WrongDataException) {
-            return makeErrorResponse(evaluatedMessage, HttpStatus.BAD_REQUEST);
+            String identifiedMessage = exception.getMessage() + uuid;
+            LOGGER.warn(identifiedMessage);
+            return makeErrorResponse(identifiedMessage, HttpStatus.BAD_REQUEST);
         } else {
-            return makeErrorResponse(INTERNAL_SERVER_ERROR, HttpStatus.INTERNAL_SERVER_ERROR);
+            String identifiedMessage = INTERNAL_SERVER_ERROR + uuid;
+            LOGGER.error(identifiedMessage);
+            return makeErrorResponse(identifiedMessage, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     private ResponseEntity<ErrorView> makeErrorResponse(String message, HttpStatus status) {
         return new ResponseEntity<>(new ErrorView(message), status);
     }
+
 }
