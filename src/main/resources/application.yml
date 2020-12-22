@@ -14,12 +14,14 @@ spring:
     password:
     driverClassName: org.h2.Driver
     initialization-mode: always
+    sql-script-encoding: UTF-8
 
   #Hibernate configuration
   jpa:
     generate-ddl: false
     hibernate:
       ddl-auto: none
+    open-in-view: false
 
   mvc:
     throw-exception-if-no-handler-found: true

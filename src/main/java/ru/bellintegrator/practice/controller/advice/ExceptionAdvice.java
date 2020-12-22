@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import ru.bellintegrator.practice.exception.EntityNotFoundException;
@@ -33,9 +34,15 @@ public class ExceptionAdvice {
             String identifiedMessage = exception.getMessage() + uuid;
             LOGGER.warn(identifiedMessage);
             return makeErrorResponse(identifiedMessage, HttpStatus.BAD_REQUEST);
+        } else if (exception instanceof MethodArgumentNotValidException) {
+            String identifiedMessage = ((MethodArgumentNotValidException) exception)
+                    .getBindingResult().getAllErrors().get(0).getDefaultMessage()
+                    + uuid;
+            LOGGER.warn(identifiedMessage);
+            return makeErrorResponse(identifiedMessage, HttpStatus.BAD_REQUEST);
         } else {
             String identifiedMessage = INTERNAL_SERVER_ERROR + uuid;
-            LOGGER.error(identifiedMessage);
+            LOGGER.error(identifiedMessage, exception);
             return makeErrorResponse(identifiedMessage, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
