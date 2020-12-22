@@ -1,6 +1,8 @@
 package ru.bellintegrator.practice.view.office;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 
@@ -8,6 +10,8 @@ import javax.validation.constraints.NotNull;
  * входящее View офиса с параметрами фильтра
  */
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class OfficeViewFilter {
 
     /**

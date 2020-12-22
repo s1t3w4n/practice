@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.practice.dao.office.OfficeDao;
 import ru.bellintegrator.practice.dao.organization.OrganizationDao;
 import ru.bellintegrator.practice.exception.EntityNotFoundException;
+import ru.bellintegrator.practice.exception.WrongDataException;
 import ru.bellintegrator.practice.model.Office;
 import ru.bellintegrator.practice.model.Organization;
 import ru.bellintegrator.practice.view.global.ResultSuccessView;
@@ -79,15 +80,22 @@ public class OfficeServiceImpl implements OfficeService {
      */
     @Override
     @Transactional
-    public ResultSuccessView saveOffice(OfficeViewSave office) {
-        Organization organization = organizationDao.findOrganizationById(office.getOrgId());
+    public ResultSuccessView saveOffice(OfficeViewSave view) {
+        Office office = mapperFactory.getMapperFacade().map(view, Office.class);
+        try {
+            office.setOrganization(checkIfExistsOrganization(organizationDao.findOrganizationById(view.getOrgId())));
+        } catch (RuntimeException e) {
+            throw new WrongDataException(e.getMessage());
+        }
+        officeDao.saveOffice(office);
+        return new ResultSuccessView();
+    }
+
+    private Organization checkIfExistsOrganization(Organization organization) {
         if (Objects.nonNull(organization)) {
-            Office toPersist = mapperFactory.getMapperFacade().map(office, Office.class);
-            toPersist.setOrganization(organization);
-            officeDao.saveOffice(toPersist);
-            return new ResultSuccessView();
+            return organization;
         } else {
-            throw new RuntimeException("Нет организации с таким id");
+            throw new EntityNotFoundException(Organization.class.getSimpleName());
         }
     }
 }
