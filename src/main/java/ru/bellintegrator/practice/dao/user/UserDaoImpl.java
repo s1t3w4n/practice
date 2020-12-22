@@ -15,6 +15,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * {@inheritDoc}
@@ -44,8 +45,10 @@ public class UserDaoImpl extends SystemDao<User> implements UserDao {
 
         putNumberFieldPredicate("citizenship", "code", filter.getCitizenshipCode(), predicates, builder, userRoot);
 
-        Path<Integer> path = userRoot.join("identity").get("doc").get("code");
-        predicates.add(builder.equal(path, filter.getDocCode()));
+        if (Objects.nonNull(filter.getDocCode())) {
+            Path<Integer> path = userRoot.join("identity").get("doc").get("code");
+            predicates.add(builder.equal(path, filter.getDocCode()));
+        }
 
         return getResultList(predicates, criteriaQuery, userRoot, entityManager);
     }

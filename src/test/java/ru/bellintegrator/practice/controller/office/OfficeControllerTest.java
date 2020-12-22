@@ -95,7 +95,7 @@ class OfficeControllerTest {
                 .andExpect(content().string(containsString(UUID)));
     }
 
-    @DisplayName("обновлять существующую офис")
+    @DisplayName("обновлять существующий офис")
     @SneakyThrows
     @Test
     void shouldUpdateOffice() {
