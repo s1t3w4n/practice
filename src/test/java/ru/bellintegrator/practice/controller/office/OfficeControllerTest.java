@@ -29,6 +29,8 @@ class OfficeControllerTest {
 
     private static final String DATA_ROOT = "$.data";
     private static final String DATA_NAME_ROOT = "$.data.name";
+    private static final String DATA_ADDRESS_ROOT = "$.data.address";
+    private static final String DATA_PHONE_ROOT = "$.data.phone";
     private static final String RESULT_ROOT = "$.data.result";
     private static final String ERROR_ROOT = "$.error";
     private static final String DATA_ID_ROOT = "$.data.id";
@@ -107,6 +109,14 @@ class OfficeControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath(RESULT_ROOT).isNotEmpty())
                 .andExpect(jsonPath(RESULT_ROOT).value(RESULT_SUCCESS));
+        this.mockMvc.perform(get("/api/office/" + DEFAULT_ID))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath(DATA_ROOT).isNotEmpty())
+                .andExpect(jsonPath(DATA_NAME_ROOT).value(NEW_VALUE))
+                .andExpect(jsonPath(DATA_ADDRESS_ROOT).value(NEW_VALUE))
+                .andExpect(jsonPath(DATA_PHONE_ROOT).value(NEW_VALUE))
+                .andExpect(jsonPath(DATA_ID_ROOT).value(DEFAULT_ID));
     }
 
     @DisplayName("возвращать ошибку 404 для несуществующей сущности")

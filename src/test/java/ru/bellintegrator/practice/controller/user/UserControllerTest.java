@@ -119,6 +119,15 @@ class UserControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath(RESULT_ROOT).isNotEmpty())
                 .andExpect(jsonPath(RESULT_ROOT).value(RESULT_SUCCESS));
+        this.mockMvc.perform(get("/api/user/" + DEFAULT_ID))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath(DATA_ROOT).isNotEmpty())
+                .andExpect(jsonPath(DATA_SECOND_NAME_ROOT).value(NEW_VALUE))
+                .andExpect(jsonPath(DATA_FIRST_NAME_ROOT).value(NEW_VALUE))
+                .andExpect(jsonPath(DATA_MIDDLE_NAME_ROOT).value(NEW_VALUE))
+                .andExpect(jsonPath(DATA_ID_ROOT).value(DEFAULT_ID));
+
     }
 
     @DisplayName("возвращать ошибку 404 для несуществующей сущности")

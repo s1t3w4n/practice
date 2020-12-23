@@ -30,6 +30,11 @@ class OrganizationControllerTest {
 
     private static final String DATA_ROOT = "$.data";
     private static final String DATA_NAME_ROOT = "$.data.name";
+    private static final String DATA_FULL_NAME_ROOT = "$.data.fullName";
+    private static final String DATA_INN_ROOT = "$.data.inn";
+    private static final String DATA_KPP_ROOT = "$.data.kpp";
+    private static final String DATA_ADDRESS_ROOT = "$.data.address";
+    private static final String DATA_PHONE_ROOT = "$.data.phone";
     private static final String RESULT_ROOT = "$..result";
     private static final String ERROR_ROOT = "$.error";
     private static final String DATA_ID_ROOT = "$.data.id";
@@ -111,6 +116,17 @@ class OrganizationControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath(RESULT_ROOT).isNotEmpty())
                 .andExpect(jsonPath(RESULT_ROOT).value(RESULT_SUCCESS));
+        this.mockMvc.perform(get("/api/organization/" + DEFAULT_ID))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath(DATA_ROOT).isNotEmpty())
+                .andExpect(jsonPath(DATA_NAME_ROOT).value(NEW_VALUE))
+                .andExpect(jsonPath(DATA_FULL_NAME_ROOT).value(NEW_VALUE))
+                .andExpect(jsonPath(DATA_INN_ROOT).value(NEW_VALUE))
+                .andExpect(jsonPath(DATA_KPP_ROOT).value(NEW_VALUE_9_SYMBOLS))
+                .andExpect(jsonPath(DATA_ADDRESS_ROOT).value(NEW_VALUE))
+                .andExpect(jsonPath(DATA_PHONE_ROOT).value(NEW_VALUE))
+                .andExpect(jsonPath(DATA_ID_ROOT).value(DEFAULT_ID));
     }
 
     @DisplayName("возвращать ошибку 404 для несуществующей сущности")
